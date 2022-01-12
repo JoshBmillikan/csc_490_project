@@ -31,6 +31,7 @@ jobs:
       - run: npm test
   deploy:
     runs-on: ubuntu-latest
+    needs: [build]
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js
@@ -38,4 +39,5 @@ jobs:
         with:
           node-version: 16.x
           cache: 'npm'
+      - run: npm ci
       - run: npm run deploy
