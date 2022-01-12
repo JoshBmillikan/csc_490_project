@@ -39,10 +39,8 @@ jobs:
         with:
           node-version: 16.x
           cache: 'npm'
-      - name: Configure git credentials
-        uses: OleksiyRudenko/gha-git-credentials@v2.1
-        with:
-          global: true
-          token: '${{ secrets.GITHUB_TOKEN }}'
-      - run: npm ci
-      - run: npm run deploy
+      - run: npm build
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        deploy_key: ${{ secrets.DEPLOY_KEY_SECRET }}
+        publish_dir: ./build
