@@ -1,26 +1,41 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+/** @jsxImportSource @emotion/react */
+import {css} from "@emotion/react";
+import {CodeEditor} from "./CodeEditor";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const mainStyle = css`
+      background-color: lightsteelblue;
+      height: 100vh;
+      width: 100vw;
+    `
+    return (
+        <div css={mainStyle}>
+            <header
+                css={css`
+                  background-color: slategray;
+                  text-align: center;
+                  user-select: none;
+                `}
+            >Shader Viewer
+            </header>
+            <span css={css`float: left`}>
+            <CodeEditor/>
+        </span>
+            <span css={css`
+              float: right;
+              padding-right: 10%;
+              padding-top: 10%;
+            `}>
+            <canvas id={"webgl"} css={css`
+              background-color: white;
+              border-width: 2px;
+              border-style: ridge;
+              height: 40vh;
+            `}/>
+        </span>
+        </div>
+    );
 }
 
 export default App;
