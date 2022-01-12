@@ -8,7 +8,8 @@ export function CodeEditor() {
     return (
         <div css={css`
           padding-left: 10%;
-          padding-top: 10%
+          padding-top: 10%;
+          user-select: none;
         `}>
         <textarea
             value={getText}
@@ -16,9 +17,10 @@ export function CodeEditor() {
             css={css`
               height: 80vh;
               width: 50vh;
-              background-color: black;
+              background-color: rgb(20,20,20);
               color: white;
               resize: none;
+              border: ridge rgb(50,50,50);
             `}
         />
         </div>

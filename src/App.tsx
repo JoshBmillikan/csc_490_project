@@ -5,7 +5,7 @@ import {CodeEditor} from "./CodeEditor";
 
 function App() {
     const mainStyle = css`
-      background-color: lightsteelblue;
+      background-color: rgb(26,28,31);
       height: 100vh;
       width: 100vw;
     `
@@ -13,9 +13,11 @@ function App() {
         <div css={mainStyle}>
             <header
                 css={css`
-                  background-color: slategray;
+                  background-color: rgb(58,60,64);
                   text-align: center;
                   user-select: none;
+                  height: 5%;
+                  font-size: 24pt;
                 `}
             >Shader Viewer
             </header>
@@ -31,6 +33,7 @@ function App() {
               background-color: white;
               border-width: 2px;
               border-style: ridge;
+              border-color: rgb(50,50,50);
               height: 40vh;
             `}/>
         </span>
