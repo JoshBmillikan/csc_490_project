@@ -49,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-syntax-highlighter": "^13.5.2",
     "jest-watch-typeahead": "^0.6.5"
   }
 }

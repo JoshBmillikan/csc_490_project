@@ -27,7 +27,8 @@ function App() {
                   text-align: center;
                   user-select: none;
                   height: 5%;
-                  font-size: 24pt;
+                  font: 24pt bold;
+                  color: whitesmoke;
                 `}
             >Shader Viewer
             </header>
