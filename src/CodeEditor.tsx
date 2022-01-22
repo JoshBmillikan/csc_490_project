@@ -14,14 +14,17 @@ export function CodeEditor() {
         <textarea
             value={getText}
             onChange={(event => setText(event.target.value))}
-            css={css`
-              height: 80vh;
-              width: 50vh;
-              background-color: rgb(20,20,20);
-              color: white;
-              resize: none;
-              border: ridge rgb(50,50,50);
-            `}
+            css={theme => ({
+                height: '80vh',
+                width: '50vh',
+                backgroundColor: theme.foregroundColor,
+                color: theme.textColor,
+                resize: 'none',
+                borderStyle: 'solid',
+                borderColor: theme.borderColor,
+                borderRadius: "3%",
+                padding: '10px'
+            })}
         />
         </div>
     )

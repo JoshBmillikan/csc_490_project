@@ -1,45 +1,66 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 /** @jsxImportSource @emotion/react */
-import {css} from "@emotion/react";
+import {css, ThemeProvider} from "@emotion/react";
 import {CodeEditor} from "./CodeEditor";
 import {RenderingEngine} from "./graphics/rendering";
+import Select from "react-select";
+import {themes} from "./theme";
 
 function App() {
-    const mainStyle = css`
-      background-color: rgb(26, 28, 31);
-      height: 100vh;
-      width: 100vw;
-    `
+    const [getTheme, setTheme] = useState(themes[0])
+
+    const options = themes.map((it) => {
+        return {
+            value: it,
+            label: it.name
+        }
+    })
 
     useEffect(() => {
         try {
-            let renderingEngine = new RenderingEngine(45,0.1,100.0)
+            let renderingEngine = new RenderingEngine(45, 0.1, 100.0)
             renderingEngine.render(0)
-        } catch (error:any) {
+        } catch (error: any) {
             alert(`WebGL initialization failed. your browser may not be compatible\nError: ${error.message}`)
         }
-    },[])
+    }, [])
+
     return (
-        <div css={mainStyle}>
-            <header
-                css={css`
-                  background-color: rgb(58, 60, 64);
-                  text-align: center;
-                  user-select: none;
-                  height: 5%;
-                  font: 24pt bold;
-                  color: whitesmoke;
-                `}
-            >Shader Viewer
-            </header>
-            <span css={css`float: left`}>
+        <ThemeProvider theme={() => getTheme}>
+            <div css={theme => ({
+                backgroundColor: theme.backgroundColor,
+                height: '100vh',
+                width: '100vw'
+            })}>
+                <header
+                    css={theme => (css`
+                      background-color: ${theme.secondaryColor};
+                      text-align: center;
+                      user-select: none;
+                      height: 5%;
+                      font: 24pt bold;
+                      color: ${theme.textColor};
+                    `)}
+                >Shader Viewer
+                </header>
+                <div css={{
+                    float: 'right',
+                    userSelect: 'none'
+                }}>
+                    <Select
+                        defaultValue={options[0]}
+                        options={options}
+                        onChange={(event) => setTheme(event!.value)}
+                    />
+                </div>
+                <span css={css`float: left`}>
             <CodeEditor/>
         </span>
-            <span css={css`
-              float: right;
-              padding-right: 10%;
-              padding-top: 10%;
-            `}>
+                <span css={css`
+                  float: right;
+                  padding-right: 10%;
+                  padding-top: 10%;
+                `}>
             <canvas
                 id={"webgl"}
                 css={css`
@@ -51,7 +72,8 @@ function App() {
                 height={"500"}
             />
         </span>
-        </div>
+            </div>
+        </ThemeProvider>
     );
 }
 
