@@ -37,8 +37,9 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
-    implementation("org.postgresql:postgresql:42.2.2")
+    implementation("org.postgresql:postgresql:42.3.1")
     implementation("org.jetbrains.exposed:exposed-java-time:$exposedVersion")
+    implementation("org.bouncycastle:bcprov-jdk15on:1.70")
     testImplementation("io.ktor:ktor-server-tests:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }
