@@ -1,9 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import {css} from "@emotion/react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+
+function save(text:string) {
+    localStorage.setItem("SHADER_VIEWER_LAST_SHADER",text)
+}
 
 export function CodeEditor() {
-    const [getText, setText] = useState("")
+    const [getText, setText] = useState(localStorage.getItem("SHADER_VIEWER_LAST_SHADER") ?? "")
+
+    useEffect(()=> {
+        const t = setTimeout(()=>save(getText),1000)
+        return () => clearTimeout(t)
+    },[getText])
 
     return (
         <div css={css`
