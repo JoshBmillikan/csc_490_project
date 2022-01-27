@@ -37,7 +37,7 @@ function App() {
             <span css={css`
               float: right;
               padding-right: 10%;
-              padding-top: 10%;
+              padding-top: 5%;
             `}>
             <canvas
                 id={"webgl"}

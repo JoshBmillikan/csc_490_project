@@ -23,6 +23,16 @@ export function CodeEditor() {
               border: ridge rgb(50,50,50);
             `}
         />
+            <button
+                name={"Load"}
+                css={css`
+                  width: 15%;
+                  color: black;
+                  background-color: gray;
+                  border: black;
+            `}
+            > Render
+            </button>
         </div>
     )
 }
