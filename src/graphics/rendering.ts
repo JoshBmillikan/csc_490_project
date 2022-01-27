@@ -1,6 +1,6 @@
 import {mat4, vec3} from "gl-matrix";
 
-const vertexShaderSouce = `
+export const vertexShaderSource = `
     attribute vec4 aVertexPosition;
     attribute vec4 aVertexColor;
 
@@ -54,11 +54,11 @@ export class RenderingEngine {
             near,
             far
         )
-        mat4.translate(this.modelView,this.modelView,[-0.2,0,-2])
+        mat4.translate(this.modelView,this.modelView,[0,0,-2])
         if (gl) {
             gl.clearColor(0.0, 0.0, 0.0, 1.0)
             gl.clear(gl.COLOR_BUFFER_BIT)
-            const program = this.loadShaders(vertexShaderSouce, fragShaderSource)
+            const program = this.loadShaders(vertexShaderSource, fragShaderSource)
             this.program = {
                 program: program,
                 vertexPosition: this.gl.getAttribLocation(program, 'aVertexPosition'),

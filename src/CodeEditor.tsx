@@ -1,9 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import {css} from "@emotion/react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+
+function save(text:string) {
+    localStorage.setItem("SHADER_VIEWER_LAST_SHADER",text)
+}
 
 export function CodeEditor() {
-    const [getText, setText] = useState("")
+    const [getText, setText] = useState(localStorage.getItem("SHADER_VIEWER_LAST_SHADER") ?? "")
+
+    useEffect(()=> {
+        const t = setTimeout(()=>save(getText),1000)
+        return () => clearTimeout(t)
+    },[getText])
 
     return (
         <div css={css`
@@ -14,14 +23,17 @@ export function CodeEditor() {
         <textarea
             value={getText}
             onChange={(event => setText(event.target.value))}
-            css={css`
-              height: 80vh;
-              width: 50vh;
-              background-color: rgb(20,20,20);
-              color: white;
-              resize: none;
-              border: ridge rgb(50,50,50);
-            `}
+            css={theme => ({
+                height: '80vh',
+                width: '50vh',
+                backgroundColor: theme.foregroundColor,
+                color: theme.textColor,
+                resize: 'none',
+                borderStyle: 'solid',
+                borderColor: theme.borderColor,
+                borderRadius: "3%",
+                padding: '10px'
+            })}
         />
             <button
                 name={"Load"}
