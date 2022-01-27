@@ -4,6 +4,9 @@
             <pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
+    <appender name="DATABASE" class="com.uncg.database.Logging.kt">
+
+    </appender>
     <root level="trace">
         <appender-ref ref="STDOUT"/>
     </root>

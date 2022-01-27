@@ -1,4 +1,4 @@
-package com.example.plugins
+package com.uncg.plugins
 
 import io.ktor.html.*
 import kotlinx.html.*
@@ -6,7 +6,6 @@ import kotlinx.css.*
 import io.ktor.http.*
 import io.ktor.application.*
 import io.ktor.response.*
-import io.ktor.request.*
 import io.ktor.routing.*
 
 fun Application.configureTemplating() {
