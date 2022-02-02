@@ -58,7 +58,7 @@ function App() {
                 </div>
                 <BrowserRouter>
                     <Routes>
-                        <Route path={'/'} element={<Home/>}/>
+                        <Route path='CSC_490_project' element={<Home/>}/>
                         <Route path='login' element={<Login/>}/>
                     </Routes>
                 </BrowserRouter>
