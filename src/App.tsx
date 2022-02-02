@@ -58,8 +58,8 @@ function App() {
                 </div>
                 <BrowserRouter>
                     <Routes>
-                        <Route path='CSC_490_project' element={<Home/>}/>
-                        <Route path='login' element={<Login/>}/>
+                        <Route path={process.env.PUBLIC_URL + '/'} element={<Home/>}/>
+                        <Route path={process.env.PUBLIC_URL + '/login'} element={<Login/>}/>
                     </Routes>
                 </BrowserRouter>
             </div>
