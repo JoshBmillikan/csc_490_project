@@ -56,10 +56,10 @@ function App() {
                         })}
                     </select>
                 </div>
-                <BrowserRouter>
+                <BrowserRouter basename={process.env.PUBLIC_URL}>
                     <Routes>
-                        <Route path={process.env.PUBLIC_URL + '/'} element={<Home/>}/>
-                        <Route path={process.env.PUBLIC_URL + '/login'} element={<Login/>}/>
+                        <Route path='/' element={<Home/>}/>
+                        <Route path='login' element={<Login/>}/>
                     </Routes>
                 </BrowserRouter>
             </div>
