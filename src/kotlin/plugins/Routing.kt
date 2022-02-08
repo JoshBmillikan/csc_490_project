@@ -15,8 +15,8 @@ fun Application.configureRouting() {
     }
     routing {
         // Static plugin. Try to access `/static/index.html`
-        static("/static") {
-            resources("static")
+        static("/src/kotlin/resources/static") {
+            resources("src/kotlin/resources/static")
         }
         install(StatusPages) {
             exception<AuthenticationException> { cause ->
