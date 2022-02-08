@@ -1,62 +1,69 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 /** @jsxImportSource @emotion/react */
-import {css} from "@emotion/react";
-import {CodeEditor} from "./CodeEditor";
-import {RenderingEngine} from "./graphics/rendering";
+import {css, ThemeProvider} from "@emotion/react";
+import {useAppDispatch, useAppSelector} from "./data/store";
+import {Home} from "./pages/Home";
+import {BrowserRouter} from "react-router-dom";
+import {Route, Routes} from "react-router";
+import {Login} from "./pages/Login";
+import {themes} from "./data/theme";
 
 function App() {
-    const mainStyle = css`
-      background-color: rgb(26, 28, 31);
-      height: 100vh;
-      width: 100vw;
-    `
+    const theme = useAppSelector((state) => state.ui.theme)
 
-    useEffect(() => {
-        try {
-            let renderingEngine = new RenderingEngine(45,0.1,100.0)
-            renderingEngine.render(0)
-        } catch (error:any) {
-            alert(`WebGL initialization failed. your browser may not be compatible\nError: ${error.message}`)
-        }
-    },[])
+    const dispatch = useAppDispatch()
+    let c = 0
     return (
-        <div css={mainStyle}>
-            <header
-                css={css`
-                  background-color: rgb(58, 60, 64);
+        <ThemeProvider theme={() => theme}>
+            <div css={theme => ({
+                backgroundColor: theme.backgroundColor,
+                height: '100vh',
+                width: '100vw'
+            })}>
+                <header
+                    css={theme => (css`
+                  background-color: ${theme.secondaryColor};
                   text-align: center;
                   user-select: none;
                   height: 5%;
-                  font-size: 24pt;
-                `}
-            >Shader Viewer
-            </header>
-            <span css={css`float: left`}>
-                <label> Theme: </label>
-                <select>
-                    <option value={"Light"}> Light </option>
-                    <option value={"Dark"}> Dark</option>
-                </select>
-
-            <CodeEditor/>
-        </span>
-            <span css={css`
-              float: right;
-              padding-right: 10%;
-              padding-top: 10%;
-            `}>
-            <canvas
-                id={"webgl"}
-                css={css`
-                  border-width: 2px;
-                  border-style: ridge;
-                  border-color: rgb(50, 50, 50);
-                `}
-                width={"720"}
-                height={"500"}
-            />
-        </span>
-        </div>
+                  font: 24pt bold;
+                  color: ${theme.textColor};
+                `)}
+                >Shader Viewer
+                </header>
+                <div css={{
+                    float: 'right',
+                    userSelect: 'none'
+                }}>
+                    <select
+                        css={theme=>({
+                            backgroundColor:theme.backgroundColor,
+                            color: theme.textColor,
+                            borderColor: theme.borderColor,
+                            borderStyle: 'inset'
+                        })}
+                        onChange={(event)=> {
+                            const name = event.target.value
+                            if (name) {
+                                dispatch({type:"setTheme", themeName: name})
+                            }
+                        }
+                    }>{
+                        Object.keys(themes).map((it) => {
+                            return (<option value={it} key={c++}>
+                                {it}
+                            </option>)
+                        })}
+                    </select>
+                </div>
+                <BrowserRouter basename={process.env.PUBLIC_URL}>
+                    <Routes>
+                        <Route path='/' element={<Home/>}/>
+                        <Route path='login' element={<Login/>}/>
+                    </Routes>
+                </BrowserRouter>
+            </div>
+        </ThemeProvider>
     );
 }
 
