@@ -3,7 +3,7 @@ import React from 'react';
 import {css, ThemeProvider} from "@emotion/react";
 import {useAppDispatch, useAppSelector} from "./data/store";
 import {Home} from "./pages/Home";
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, HashRouter, Link} from "react-router-dom";
 import {Route, Routes} from "react-router";
 import {Login} from "./pages/Login";
 import {themes} from "./data/theme";
@@ -15,6 +15,8 @@ function App() {
     let c = 0
     return (
         <ThemeProvider theme={() => theme}>
+            <HashRouter>
+
             <div css={theme => ({
                 backgroundColor: theme.backgroundColor,
                 height: '100vh',
@@ -35,6 +37,7 @@ function App() {
                     float: 'right',
                     userSelect: 'none'
                 }}>
+                    <Link to={'login'}>Sign In</Link>
                     <select
                         css={theme=>({
                             backgroundColor:theme.backgroundColor,
@@ -56,13 +59,12 @@ function App() {
                         })}
                     </select>
                 </div>
-                <BrowserRouter basename={process.env.PUBLIC_URL}>
                     <Routes>
                         <Route path='/' element={<Home/>}/>
                         <Route path='login' element={<Login/>}/>
                     </Routes>
-                </BrowserRouter>
             </div>
+            </HashRouter>
         </ThemeProvider>
     );
 }
