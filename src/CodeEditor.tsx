@@ -10,7 +10,7 @@ export function CodeEditor() {
           padding-left: 10%;
           padding-top: 10%;
           user-select: none;
-        `}>
+        `} className={"code"}>
         <textarea
             value={getText}
             onChange={(event => setText(event.target.value))}

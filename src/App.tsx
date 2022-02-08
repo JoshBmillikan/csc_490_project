@@ -32,6 +32,12 @@ function App() {
             >Shader Viewer
             </header>
             <span css={css`float: left`}>
+                <label> Theme: </label>
+                <select>
+                    <option value={"Light"}> Light </option>
+                    <option value={"Dark"}> Dark</option>
+                </select>
+
             <CodeEditor/>
         </span>
             <span css={css`
