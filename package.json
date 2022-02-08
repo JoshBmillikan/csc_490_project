@@ -30,7 +30,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts src/test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build && cp build/index.html build/404.html",
     "deploy": "gh-pages -d build"
