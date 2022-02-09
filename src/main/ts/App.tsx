@@ -6,6 +6,7 @@ import {Home} from "./pages/Home";
 import {BrowserRouter, HashRouter, Link} from "react-router-dom";
 import {Route, Routes} from "react-router";
 import {Login} from "./pages/Login";
+import {Register} from "./pages/Register"
 import {themes} from "./data/theme";
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
                     <Routes>
                         <Route path='/' element={<Home/>}/>
                         <Route path='login' element={<Login/>}/>
+                        <Route path='register' element={<Register/>}/>
                     </Routes>
             </div>
             </HashRouter>

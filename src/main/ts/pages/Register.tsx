@@ -6,18 +6,19 @@ import {Navigate} from "react-router";
 import {apiRoot} from "../data/api";
 import {Link} from "react-router-dom";
 
-enum LoginState {
+enum RegistrationState {
     input,
     verifying,
     failed,
     success
 }
 
-export function Login() {
-    const [getLoginState, setLoginState] = useState(LoginState.input)
-    const [getUsername, setUsername] = useState("")
-    const [getPassword, setPassword] = useState("")
-
+export function Register(){
+    // States for registration
+    const [getRegistrationState, setRegistrationState] = useState(RegistrationState.input);
+    const [getUsername, setUsername] = useState('');
+    const [getEmail, setEmail] = useState('');
+    const [getPassword, setPassword] = useState('');
     const inputFormStyle = (theme: Theme) => {
         return {
             background: theme.backgroundColor,
@@ -36,25 +37,24 @@ export function Login() {
             fontFamily: theme.secondaryFontFamily,
         }
     }
-
-    return (
-        <div css={{paddingTop: '10vh'}}>
+    return(
+        <div css={{paddingTop: '5vh'}}>
             <div css={theme => ({
                 background: theme.foregroundColor,
                 paddingTop: "3vh",
                 width: '25%',
-                height: '60vh',
+                height: '75vh',
                 display: 'block',
                 marginLeft: 'auto',
                 marginRight: 'auto',
                 alignContent: 'center',
-                borderColor: getLoginState === LoginState.failed ? 'darkred' : theme.borderColor,
+                borderColor: getRegistrationState === RegistrationState.failed ? 'darkred' : theme.borderColor,
                 borderStyle: 'solid',
                 borderWidth: '1px',
                 fontSize: '14pt',
                 borderRadius: "2%"
             })}>
-                {getLoginState === LoginState.success && <Navigate to='/'/>}
+                {getRegistrationState === RegistrationState.success && <Navigate to='/'/>}
                 <header
                     css={theme => ({
                         color: theme.textColor,
@@ -68,9 +68,9 @@ export function Login() {
                         paddingBottom: '2vh',
                     })}
                 >
-                    Sign In
+                    User Registration
                 </header>
-                {getLoginState === LoginState.failed &&
+                {getRegistrationState === RegistrationState.failed &&
                     <div css={{color: 'red', textAlign: "center", userSelect: 'none'}}
                     >Invalid username or password</div>}
                 <form css={theme => ({
@@ -78,12 +78,12 @@ export function Login() {
                     paddingTop: '5vh',
                     fontFamily: theme.fontFamily
                 })} onSubmit={(event) => {
-                    setLoginState(LoginState.verifying)
-                    makeLoginRequest(event, getUsername, getPassword).then((it) => {
+                    setRegistrationState(RegistrationState.verifying)
+                    makeRegisterRequest(event, getUsername, getEmail, getPassword).then((it) => {
                         if (it) {
-                            setLoginState(LoginState.success)
+                            setRegistrationState(RegistrationState.success)
                         } else {
-                            setLoginState(LoginState.failed)
+                            setRegistrationState(RegistrationState.failed)
                         }
                     })
                     return false
@@ -104,6 +104,19 @@ export function Login() {
                     <label css={{
                         display: 'block',
                         margin: 'auto',
+                        paddingBottom: '5vh',
+                        textAlign: 'center',
+                        userSelect: 'none',
+                    }}>
+                        Email<br/>
+                        <input type='text' name='email' css={inputFormStyle}
+                               onChange={(event) => setEmail(event.target.value)}
+                               value={getEmail}
+                        />
+                    </label>
+                    <label css={{
+                        display: 'block',
+                        margin: 'auto',
                         textAlign: 'center',
                         userSelect: 'none',
                     }}>
@@ -117,12 +130,12 @@ export function Login() {
                         paddingTop: '10vh',
                         textAlign: 'center',
                         userSelect: 'none',
-                    }}>{getLoginState === LoginState.verifying ? <div>
+                    }}>{getRegistrationState === RegistrationState.verifying ? <div>
                             <PulseLoader color={
                                 "lightblue"
                             }/>
                         </div> :
-                        <input type='submit' value='Sign In' css={theme => ({
+                        <input type='submit' value='Sign Up' css={theme => ({
                             width: '55%',
                             height: '4vh',
                             fontFamily: theme.fontFamily,
@@ -137,7 +150,7 @@ export function Login() {
                         textAlign: 'center',
                         fontSize: '12pt',
                     }}>
-                        <p>Don't have an account? <Link to={'../register'}>Create One</Link> </p>
+                        <p>Already have an account? <Link to={'../login'}>Login</Link> </p>
                     </div>
                 </form>
             </div>
@@ -145,11 +158,11 @@ export function Login() {
     )
 }
 
-async function makeLoginRequest(event: FormEvent<HTMLFormElement>, username: string, password: string): Promise<boolean> {
+async function makeRegisterRequest(event: FormEvent<HTMLFormElement>, username: string, email: string, password: string): Promise<boolean> {
     event.preventDefault()
-    const response = await fetch(apiRoot + "login", {
+    const response = await fetch(apiRoot + "register", {
         method: "POST",
-        body: new URLSearchParams(`username=${username}&password=${password}`)
+        body: new URLSearchParams(`username=${username}&email=${email}&password=${password}`)
     })
 
     return response.ok
