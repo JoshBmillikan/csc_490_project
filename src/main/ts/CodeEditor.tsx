@@ -1,18 +1,19 @@
 /** @jsxImportSource @emotion/react */
 import {css} from "@emotion/react";
 import {useEffect, useState} from "react";
-
-function save(text:string) {
-    localStorage.setItem("SHADER_VIEWER_LAST_SHADER",text)
-}
+import {useAppDispatch, useAppSelector} from "./data/store";
+import {ShaderState} from "./data/reducers";
 
 export function CodeEditor() {
-    const [getText, setText] = useState(localStorage.getItem("SHADER_VIEWER_LAST_SHADER") ?? "")
-
+    const selector = useAppSelector((state) => state.shader)
+    const [getText, setText] = useState(selector[selector.selectedShaderName as keyof ShaderState] ?? "")
+    const dispatch = useAppDispatch()
     useEffect(()=> {
-        const t = setTimeout(()=>save(getText),1000)
+        const t = setTimeout(()=>{
+            dispatch({shaderName: selector.selectedShaderName, newShader: getText, type: "updateShader"})
+        },1000)
         return () => clearTimeout(t)
-    },[getText])
+    },[dispatch, getText, selector.selectedShaderName])
 
     return (
         <div css={css`
