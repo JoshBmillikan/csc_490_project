@@ -3,7 +3,7 @@ import React from 'react';
 import {css, ThemeProvider} from "@emotion/react";
 import {useAppDispatch, useAppSelector} from "./data/store";
 import {Home} from "./pages/Home";
-import {BrowserRouter, HashRouter, Link} from "react-router-dom";
+import {HashRouter, Link} from "react-router-dom";
 import {Route, Routes} from "react-router";
 import {Login} from "./pages/Login";
 import {themes} from "./data/theme";

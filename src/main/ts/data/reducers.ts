@@ -6,6 +6,12 @@ export class UiState {
     theme: Theme = themes.dark
 }
 
+export class ShaderState {
+    selectedShaderName: string = "vertex";
+    vertex: string = vertexShaderSource;
+    fragment: string = fragShaderSource;
+}
+
 function loadPersistUi(): UiState {
     const saved = localStorage.getItem("_SHADER_VIEW_UI_STATE")
     if (saved)
@@ -13,12 +19,47 @@ function loadPersistUi(): UiState {
     else return new UiState()
 }
 
+function loadPersistShader(): ShaderState {
+    const saved = localStorage.getItem("_SHADER_STATE")
+    if (saved)
+        return JSON.parse(saved) ?? new ShaderState()
+    else return new ShaderState()
+}
+
 export interface ThemeAction extends AnyAction {
     themeName: string
 }
 
+export interface ShaderAction extends AnyAction {
+    shaderName: string,
+    newShader: string | null
+}
+
 export const rootReducer = {
-    ui: uiReducer
+    ui: uiReducer,
+    shader: shaderReducer
+}
+
+function shaderReducer(state: ShaderState = loadPersistShader(), action: AnyAction) {
+    const act = (action as ShaderAction)
+    switch (act.type as string) {
+        case "updateShader":
+            const key = act.shaderName as keyof typeof state
+            const old = state[key]
+            if (old === act.newShader || act.newShader == null)
+                return state
+            //todo compile/update webGl shader
+            let newState = state
+            newState[key] = act.newShader
+            localStorage.setItem("_SHADER_STATE",JSON.stringify(newState))
+            return newState
+        case "selectShader":
+            return {
+                ...state,
+                selectedShaderName: act.shaderName,
+            }
+        default: return state
+    }
 }
 
 function uiReducer(state: UiState = loadPersistUi(), action: AnyAction) {
@@ -35,3 +76,26 @@ function uiReducer(state: UiState = loadPersistUi(), action: AnyAction) {
             return state
     }
 }
+
+const vertexShaderSource = `
+    attribute vec4 aVertexPosition;
+    attribute vec4 aVertexColor;
+
+    uniform mat4 uModelViewMatrix;
+    uniform mat4 uProjectionMatrix;
+
+    varying lowp vec4 vColor;
+
+    void main(void) {
+      gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+      vColor = aVertexColor;
+    }
+  `;
+
+const fragShaderSource = `
+    varying lowp vec4 vColor;
+
+    void main(void) {
+      gl_FragColor = vColor;
+    }
+  `;
