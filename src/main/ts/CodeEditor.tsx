@@ -24,6 +24,7 @@ export function CodeEditor() {
         <textarea
             value={getText}
             onChange={(event => setText(event.target.value))}
+            spellCheck={false}
             css={theme => ({
                 height: '80vh',
                 width: '50vh',
