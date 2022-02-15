@@ -4,10 +4,7 @@ import React, {useEffect} from "react";
 import {CodeEditor} from "../CodeEditor";
 import {RenderingEngine} from "../graphics/rendering";
 
-
 export function Home() {
-
-
     useEffect(() => {
         try {
             let renderingEngine = new RenderingEngine(45, 0.1, 100.0)

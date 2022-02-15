@@ -4,10 +4,14 @@ import {useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "./data/store";
 import {ShaderState} from "./data/reducers";
 
+
 export function CodeEditor() {
     const selector = useAppSelector((state) => state.shader)
     const [getText, setText] = useState(selector[selector.selectedShaderName as keyof ShaderState] ?? "")
     const dispatch = useAppDispatch()
+    const dropData ={vector:{name:'vector'}, fragment:{name:'Fragment'}};
+    let i = 0;
+
     useEffect(()=> {
         const t = setTimeout(()=>{
             dispatch({shaderName: selector.selectedShaderName, newShader: getText, type: "updateShader"})
@@ -36,6 +40,18 @@ export function CodeEditor() {
                 padding: '10px'
             })}
         />
+            <select css={theme=>({
+                backgroundColor: theme.backgroundColor,
+                color: theme.textColor,
+                borderColor: theme.borderColor,
+                borderStyle: 'inset'
+            })}>
+                {Object.keys(dropData).map((it:string)=> {
+                    return (<option value={it} key={i++}>
+                        {it}
+                    </option>)
+                })}
+            </select>
         </div>
     )
 }
