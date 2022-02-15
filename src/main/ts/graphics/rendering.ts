@@ -1,27 +1,5 @@
 import {mat4, vec3} from "gl-matrix";
-
-const vertexShaderSouce = `
-    attribute vec4 aVertexPosition;
-    attribute vec4 aVertexColor;
-
-    uniform mat4 uModelViewMatrix;
-    uniform mat4 uProjectionMatrix;
-
-    varying lowp vec4 vColor;
-
-    void main(void) {
-      gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
-      vColor = aVertexColor;
-    }
-  `;
-
-const fragShaderSource = `
-    varying lowp vec4 vColor;
-
-    void main(void) {
-      gl_FragColor = vColor;
-    }
-  `;
+import {store} from "../data/store";
 
 interface ProgramData {
     program: WebGLProgram,
@@ -54,11 +32,11 @@ export class RenderingEngine {
             near,
             far
         )
-        mat4.translate(this.modelView,this.modelView,[-0.2,0,-2])
+        mat4.translate(this.modelView,this.modelView,[0,0,-2])
         if (gl) {
             gl.clearColor(0.0, 0.0, 0.0, 1.0)
             gl.clear(gl.COLOR_BUFFER_BIT)
-            const program = this.loadShaders(vertexShaderSouce, fragShaderSource)
+            const program = this.loadShaders()
             this.program = {
                 program: program,
                 vertexPosition: this.gl.getAttribLocation(program, 'aVertexPosition'),
@@ -139,11 +117,12 @@ export class RenderingEngine {
         }
     }
 
-    private loadShaders(vertex: string, fragment: string): WebGLProgram {
+    private loadShaders(): WebGLProgram {
+        const state = store.getState().shader
         const program = this.gl.createProgram()
         if (program) {
-            this.gl.attachShader(program, this.compileShader(vertex, this.gl.VERTEX_SHADER))
-            this.gl.attachShader(program, this.compileShader(fragment, this.gl.FRAGMENT_SHADER))
+            this.gl.attachShader(program, this.compileShader(state.vertex, this.gl.VERTEX_SHADER))
+            this.gl.attachShader(program, this.compileShader(state.fragment, this.gl.FRAGMENT_SHADER))
             this.gl.linkProgram(program)
             return program
         } else throw new Error("Failed to create shader program")
