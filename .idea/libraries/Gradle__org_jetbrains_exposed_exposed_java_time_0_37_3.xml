@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jetbrains.exposed:exposed-java-time:0.37.3">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.exposed/exposed-java-time/0.37.3/4da85a50e431e2875461677b497640258b668d21/exposed-java-time-0.37.3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.exposed/exposed-java-time/0.37.3/28ed2371cf7f66d53a4c0d02f4fde5f554879ff4/exposed-java-time-0.37.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
