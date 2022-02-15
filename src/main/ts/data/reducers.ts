@@ -1,6 +1,7 @@
 import {Theme} from "@emotion/react";
 import {AvailableThemes, themes} from "./theme";
 import {AnyAction} from "@reduxjs/toolkit";
+import {RenderingEngine} from "../graphics/rendering";
 
 export class UiState {
     theme: Theme = themes.dark
@@ -45,12 +46,8 @@ function shaderReducer(state: ShaderState = loadPersistShader(), action: AnyActi
     switch (act.type as string) {
         case "updateShader":
             const key = act.shaderName as keyof typeof state
-            const old = state[key]
-            if (old === act.newShader || act.newShader == null)
-                return state
-            //todo compile/update webGl shader
-            let newState = state
-            newState[key] = act.newShader
+            let newState = {...state}
+            newState[key] = act.newShader!
             localStorage.setItem("_SHADER_STATE",JSON.stringify(newState))
             return newState
         case "selectShader":
