@@ -1,7 +1,6 @@
 import {Theme} from "@emotion/react";
 import {AvailableThemes, themes} from "./theme";
 import {AnyAction} from "@reduxjs/toolkit";
-import {RenderingEngine} from "../graphics/rendering";
 
 export class UiState {
     theme: Theme = themes.dark
