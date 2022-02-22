@@ -10,7 +10,7 @@ export function CodeEditor() {
     const shaderName = useAppSelector((state) => state.shader.selectedShaderName)
     const [getText, setText] = useState(selector[selector.selectedShaderName as keyof ShaderState] ?? "")
     const dispatch = useAppDispatch()
-    const dropData ={vector:{name:'vector'}, fragment:{name:'Fragment'}};
+    const dropData ={vertex:{name:'vertex'}, fragment:{name:'fragment'}};
     let i = 0;
 
     useEffect(() => {
@@ -52,7 +52,14 @@ export function CodeEditor() {
                 color: theme.textColor,
                 borderColor: theme.borderColor,
                 borderStyle: 'inset'
-            })}>
+            })}
+                onChange={(event)=>{
+                    const name = event.target.value;
+                    if (name){
+                        dispatch({type:'selectShader', shaderName: name, newShader: null})
+                    }
+                }
+            }>
                 {Object.keys(dropData).map((it:string)=> {
                     return (<option value={it} key={i++}>
                         {it}
