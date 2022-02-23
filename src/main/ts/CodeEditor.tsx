@@ -34,6 +34,7 @@ export function CodeEditor() {
           user-select: none;
         `}>
         <textarea
+            id={"editing"}
             value={getText}
             onChange={(event => setText(event.target.value))}
             spellCheck={false}
@@ -50,6 +51,9 @@ export function CodeEditor() {
                 padding: '10px',
             })}
         />
+            <pre id={"highlighting"} aria-hidden={true}>
+                <code className={"lanugage-html"} id={"highlighting-content"}></code>
+            </pre>
             <select css={theme=>({
                 backgroundColor: theme.backgroundColor,
                 color: theme.textColor,
