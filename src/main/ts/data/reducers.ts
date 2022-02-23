@@ -50,10 +50,13 @@ function shaderReducer(state: ShaderState = loadPersistShader(), action: AnyActi
             let newState = {...state}
             newState[key] = act.newShader!
             localStorage.setItem("_SHADER_STATE", JSON.stringify(newState))
-            // get text content
+            // get element from text area
             let result_element = document.querySelector("#highlighting-content");
+            // check for null element
             if (result_element && result_element.innerHTML) {
+                // get text from the text area then parse for common string symbols that would register as html possibly
                 result_element.innerHTML = newState[key].replace(new RegExp("&", "g"), "&").replace(new RegExp("<", "g"), "<");
+                // function to highlight the text within the text area
                 Prism.highlightElement(result_element);
             }
             return newState
