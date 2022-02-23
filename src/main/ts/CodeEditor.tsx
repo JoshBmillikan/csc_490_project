@@ -35,6 +35,7 @@ export function CodeEditor() {
             value={getText}
             onChange={(event => setText(event.target.value))}
             spellCheck={false}
+            wrap={'off'}
             css={theme => ({
                 height: '80vh',
                 width: '50vh',
@@ -44,7 +45,7 @@ export function CodeEditor() {
                 borderStyle: 'solid',
                 borderColor: theme.borderColor,
                 borderRadius: "3%",
-                padding: '10px'
+                padding: '10px',
             })}
         />
             <select css={theme=>({
