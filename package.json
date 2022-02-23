@@ -48,6 +48,7 @@
     "postcss-loader": "^6.2.1",
     "postcss-normalize": "^10.0.1",
     "postcss-preset-env": "^7.0.1",
+    "prismjs": "^1.27.0",
     "prompts": "^2.4.2",
     "react": "^17.0.2",
     "react-app-polyfill": "^3.0.0",
@@ -101,6 +102,7 @@
     ]
   },
   "devDependencies": {
+    "@types/prismjs": "^1.26.0",
     "@types/react-syntax-highlighter": "^13.5.2",
     "jest-watch-typeahead": "^0.6.5"
   },

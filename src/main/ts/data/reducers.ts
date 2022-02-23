@@ -1,6 +1,8 @@
 import {Theme} from "@emotion/react";
 import {AvailableThemes, themes} from "./theme";
 import {AnyAction} from "@reduxjs/toolkit";
+import "../prism.css";
+import Prism from "prismjs";
 
 export class UiState {
     theme: Theme = themes.dark
@@ -47,7 +49,13 @@ function shaderReducer(state: ShaderState = loadPersistShader(), action: AnyActi
             const key = act.shaderName as keyof typeof state
             let newState = {...state}
             newState[key] = act.newShader!
-            localStorage.setItem("_SHADER_STATE",JSON.stringify(newState))
+            localStorage.setItem("_SHADER_STATE", JSON.stringify(newState))
+            // get text content
+            let result_element = document.querySelector("#highlighting-content");
+            if (result_element && result_element.innerHTML) {
+                result_element.innerHTML = newState[key].replace(new RegExp("&", "g"), "&").replace(new RegExp("<", "g"), "<");
+                Prism.highlightElement(result_element);
+            }
             return newState
         case "selectShader":
             return {
