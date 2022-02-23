@@ -4,7 +4,6 @@ import {useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "./data/store";
 import {ShaderState} from "./data/reducers";
 
-
 export function CodeEditor() {
     const selector = useAppSelector((state) => state.shader)
     const shaderName = useAppSelector((state) => state.shader.selectedShaderName)
@@ -12,6 +11,7 @@ export function CodeEditor() {
     const dispatch = useAppDispatch()
     const dropData ={vertex:{name:'vertex'}, fragment:{name:'fragment'}};
     let i = 0;
+
 
     useEffect(() => {
         const txt = selector[shaderName as keyof ShaderState]
@@ -24,6 +24,8 @@ export function CodeEditor() {
         },1000)
         return () => clearTimeout(t)
     },[dispatch, getText, selector.selectedShaderName])
+
+
 
     return (
         <div css={css`
