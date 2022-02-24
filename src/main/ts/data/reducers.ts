@@ -55,7 +55,7 @@ function shaderReducer(state: ShaderState = loadPersistShader(), action: AnyActi
             // check for null element
             if (result_element && result_element.innerHTML) {
                 // get text from the text area then parse for common string symbols that would register as html possibly
-                result_element.innerHTML = newState[key].replace(new RegExp("&", "g"), "&").replace(new RegExp("<", "g"), "<");
+                result_element.textContent = newState[key];
                 // function to highlight the text within the text area
                 Prism.highlightElement(result_element);
             }

@@ -38,6 +38,8 @@ export function CodeEditor(this: any) {
             id={"editing"}
             value={getText}
             onChange={(event => setText(event.target.value))}
+            onScroll={sync}
+            onInput={sync}
             spellCheck={false}
         />
             <pre id={"highlighting"} aria-hidden={true} >
@@ -65,4 +67,13 @@ export function CodeEditor(this: any) {
             </select>
         </div>
     )
+}
+
+function sync (){
+    let input_element = document.querySelector("#editing");
+    let output_element = document.querySelector("#highlighting");
+    if (output_element && input_element) {
+        output_element.scrollLeft = input_element.scrollLeft;
+        output_element.scrollTop = input_element.scrollTop;
+    }
 }

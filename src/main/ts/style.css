@@ -12,7 +12,7 @@ Style sheet for the code editor with syntax highlighting
     position: absolute;
     top: 70px;
     left: 0;
-    overflow: auto;
+    overflow: scroll;
     white-space: nowrap; /* Allows textarea to scroll horizontally */
 }
 
