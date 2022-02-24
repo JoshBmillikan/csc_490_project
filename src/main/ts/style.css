@@ -17,14 +17,13 @@ Style sheet for the code editor with syntax highlighting
 }
 
 #editing, #highlighting, #highlighting * {
-    /* Also add text styles to highlighting tokens */
-    font-size: 15pt;
+    font-size: 12pt;
     font-family: monospace;
     line-height: 20pt;
 }
 
 #editing {
-    z-index: 1;
+    z-index: 1; /* puts text area in front of syntax highlighter */
     color: transparent;
     background: transparent;
     caret-color: white;
@@ -32,5 +31,5 @@ Style sheet for the code editor with syntax highlighting
 }
 
 #highlighting {
-    z-index: 0;
+    z-index: 0; /* puts highligthing box behind the text area*/
 }
