@@ -17,7 +17,7 @@ Style sheet for the code editor with syntax highlighting
 }
 
 #editing, #highlighting, #highlighting * {
-    font-size: 12pt;
+    font-size: 12pt; /* font size*/
     font-family: monospace;
     line-height: 20pt;
 }
