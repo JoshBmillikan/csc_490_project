@@ -17,6 +17,9 @@ class Logging : AppenderBase<ILoggingEvent>(){
         val timestamp: Column<Instant> = timestamp("timestamp")
         val message: Column<String> = text("message")
     }
+    init {
+        println(Logs.createStatement())
+    }
     override fun append(eventObject: ILoggingEvent?) {
         if(eventObject != null && eventObject.loggerName != "com.zaxxer.hikari.pool.HikariPool") {
             transaction {

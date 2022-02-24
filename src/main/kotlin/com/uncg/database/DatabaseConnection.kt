@@ -1,6 +1,8 @@
 package com.uncg.database
 
 import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.name
+import java.util.logging.Logger
 
 
 object DatabaseConnection {
@@ -10,11 +12,13 @@ object DatabaseConnection {
         val user: String = System.getenv("RDS_USERNAME")
         val pass: String = System.getenv("RDS_PASSWORD")
         val port: String = System.getenv("RDS_PORT")
-        return@lazy Database.connect(
+        val database = Database.connect(
             "jdbc:postgresql://${hostname}:${port}/${dbName}",
             "org.postgresql.Driver",
             user,
             pass,
         )
+        Logger.getGlobal().info("Connected to database ${database.name} at ${database.url}")
+        return@lazy database
     }
 }

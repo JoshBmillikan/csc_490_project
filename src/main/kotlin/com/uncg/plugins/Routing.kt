@@ -27,6 +27,10 @@ fun Application.configureRouting() {
             }
 
         }
+        get("/") {
+            call.respondText { "CSC 490 project server" }
+        }
+
         post("/create_account") {
             val params = call.receiveParameters()
             val username = params["username"]
