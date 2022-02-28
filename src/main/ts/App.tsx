@@ -8,6 +8,7 @@ import {Route, Routes} from "react-router";
 import {Login} from "./pages/Login";
 import {Register} from "./pages/Register"
 import {themes} from "./data/theme";
+import {Profile} from "./pages/Account";
 
 function App() {
     const theme = useAppSelector((state) => state.ui.theme)
@@ -64,6 +65,7 @@ function App() {
                         <Route path='/' element={<Home/>}/>
                         <Route path='login' element={<Login/>}/>
                         <Route path='register' element={<Register/>}/>
+                        <Route path='profile' element={<Profile/>}/>
                     </Routes>
             </div>
             </HashRouter>
