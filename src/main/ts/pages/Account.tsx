@@ -1,29 +1,17 @@
 /** @jsxImportSource @emotion/react */
 import {Theme} from "@emotion/react";
 import React, {FormEvent, useState} from "react";
-/*
-import {PulseLoader} from "react-spinners";
-import {Navigate} from "react-router";
-import {apiRoot} from "../data/api";
-import {Link} from "react-router-dom";
-*/
 import 'bootstrap/dist/css/bootstrap.css';
-import Figure from 'react-bootstrap/Figure'
-import FigureImage from 'react-bootstrap/FigureImage'
-import FigureCaption from 'react-bootstrap/FigureCaption'
-import "./Account.css"
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Nav from 'react-bootstrap/Nav'
-import TabContainer from 'react-bootstrap/TabContainer'
-import TabPane from 'react-bootstrap/TabPane'
-import TabContent from 'react-bootstrap/TabContent'
+import {PulseLoader} from "react-spinners";
 
 export function Profile() {
     const [getUsername, setUsername] = useState("")
     const [getEmail, setEmail] = useState("")
+    const [getPassword, setPassword] = useState("")
+    const [getNewPassword, setNewPassword] = useState("")
+    const [getRNewPassword, setRNewPassword] = useState("")
     const current = new Date();
     const date = `${current.getMonth()+1}/${current.getDate()}/${current.getFullYear()}`;
 
@@ -40,16 +28,18 @@ export function Profile() {
             alignContent: 'left',
             margin: 'auto',
             justifyContent: 'left',
-            fontSize: '14pt',
+            fontSize: '15pt',
             fontWeight: 'normal',
             fontFamily: theme.secondaryFontFamily,
         }
     }
 
     return (
-        <div css={{paddingTop: '13vh'}}>
-            <div className="container">
-                <div className="element">
+        <div css={{
+                paddingTop: '13vh',
+             }}>
+            <div className="container" css={{display: 'flex'}}>
+                <div className="element" css={{height: '150px', margin: '5px', flex: '0 0 auto'}}>
                     <figure
                         css={theme => ({
                             color: theme.textColor,
@@ -66,7 +56,7 @@ export function Profile() {
                         </figcaption>
                     </figure>
                 </div>
-                <div className="element">
+                <div className="element" css={{height: '150px', margin: '5px', flex: '0 0 auto'}}>
                     <text
                         css={theme => ({
                             color: theme.textColor,
@@ -117,23 +107,84 @@ export function Profile() {
                 css={theme => ({
                     color: theme.textColor,
                     width: 1300,
+                    borderStyle: 'solid',
+                    borderWidth: '3px',
+                    margin: 'auto',
                     textAlign: 'center',
                     fontSize: '18pt',
                     fontFamily: theme.fontFamily,
                     userSelect: 'none',
-                    borderBottomColor: theme.borderColor,
-                    paddingTop: '12vh',
-                    paddingLeft: '30vh'
+                    borderRadius: '5px 5px 5px 5px',
+                    padding: '10px',
+                    borderColor: theme.borderColor,
+                    backgroundColor: theme.backgroundColor
                 })}>
                 <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3">
-                    <Tab eventKey="home" title="Home">
+                    <Tab eventKey="shaders" title="Shaders">
                         First
                     </Tab>
-                    <Tab eventKey="profile" title="Profile">
+                    <Tab eventKey="notifications" title="Notifications">
                         Second
                     </Tab>
-                    <Tab eventKey="contact" title="Contact">
-                        Third
+                    <Tab eventKey="password" title="Password">
+                        <form>
+                            <label css={{
+                                display: 'block',
+                                margin: 'auto',
+                                textAlign: 'center',
+                                userSelect: 'none',
+                                fontSize: '15pt',
+                                paddingBottom: '3vh'
+                            }}>
+                                Current Password:
+                                <input type='password' name='password' css={inputFormStyle}
+                                       onChange={(event) => setPassword(event.target.value)}
+                                       value={getPassword}
+                                />
+                            </label>
+                            <label css={{
+                                display: 'block',
+                                margin: 'auto',
+                                textAlign: 'center',
+                                userSelect: 'none',
+                                fontSize: '15pt',
+                                paddingBottom: '3vh'
+                            }}>
+                                New Password:
+                                <input type='password' name='newPassword' css={inputFormStyle}
+                                       onChange={(event) => setNewPassword(event.target.value)}
+                                       value={getNewPassword}
+                                />
+                            </label>
+                            <label css={{
+                                display: 'block',
+                                margin: 'auto',
+                                textAlign: 'center',
+                                userSelect: 'none',
+                                fontSize: '15pt',
+                                paddingBottom: '3vh'
+                            }}>
+                                Repeat New Password:
+                                <input type='password' name='rNewPassword' css={inputFormStyle}
+                                       onChange={(event) => setRNewPassword(event.target.value)}
+                                       value={getRNewPassword}
+                                />
+                            </label>
+                            <div css={{
+                                textAlign: 'center',
+                                userSelect: 'none',
+                            }}>
+                                <input type='submit' value='Save Changes' css={theme => ({
+                                    width: '20%',
+                                    height: '6vh',
+                                    fontFamily: theme.fontFamily,
+                                    fontWeight: 'bold',
+                                    fontSize: '14pt',
+                                    color: theme.textColor,
+                                    backgroundColor: theme.elementColor,
+                                })}/>
+                            </div>
+                        </form>
                     </Tab>
                 </Tabs>
             </div>

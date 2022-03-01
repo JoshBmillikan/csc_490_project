@@ -1,8 +1,0 @@
-.container {
-    display: flex;
-}
-.element {
-    height: 150px;
-    margin: 5px;
-    flex: 0 0 auto;
-}
