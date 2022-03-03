@@ -43,7 +43,7 @@ export function CodeEditor(this: any) {
             spellCheck={false}
         />
             <pre id={"highlighting"} aria-hidden={true} >
-                <code className={"language-javascript"} id={"highlighting-content"}>{getText}</code>
+                <code className={"language-js"} id={"highlighting-content"}>{getText}</code>
             </pre>
 
             <select css={theme=>({
