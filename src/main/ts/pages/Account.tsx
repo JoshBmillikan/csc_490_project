@@ -121,12 +121,12 @@ export function Profile() {
                 })}>
                 <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3">
                     <Tab eventKey="shaders" title="Shaders">
-                        First
+                        No shaders currently saved
                     </Tab>
                     <Tab eventKey="notifications" title="Notifications">
-                        Second
+                        No current notifications
                     </Tab>
-                    <Tab eventKey="password" title="Password">
+                    <Tab eventKey="password" title="Change Password">
                         <form>
                             <label css={{
                                 display: 'block',
