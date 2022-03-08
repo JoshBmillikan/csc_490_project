@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: projectcontainers.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_00a96d13e3df44a2a364c938ca7be043 }}/mcr.microsoft.com/appsvc/staticsite:${{ github.sha }}
+        tags: projectcontainers.azurecr.io/joshbmillikan/mcr.microsoft.com/appsvc/staticsite:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
