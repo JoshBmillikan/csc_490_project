@@ -23,14 +23,14 @@ jobs:
       uses: docker/login-action@v1
       with:
         registry: https://490project.azurecr.io/
-        username: ${{ secrets.AzureAppService_ContainerUsername_aa18157472834cdab5bcfd430a426290 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_fe0e1de012264d669083689f29739ff1 }}
+        username: ${{ secrets.AzureAppService_ContainerUsername_1c42c6a86e874d4ebcb4645a08b35638 }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_89421b280bd243d5a67cd21d5b04b8ea }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: 490project.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_aa18157472834cdab5bcfd430a426290 }}/csc490projectimage:${{ github.sha }}
+        tags: 490project.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_1c42c6a86e874d4ebcb4645a08b35638 }}/csc490image:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'CSC490Server'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_6eea5db46fe54243a4e9465560b13992 }}
-        images: '490project.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_aa18157472834cdab5bcfd430a426290 }}/csc490projectimage:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_e28ef3d0928b407aaad9c2f431d1bfb4 }}
+        images: '490project.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_1c42c6a86e874d4ebcb4645a08b35638 }}/csc490image:${{ github.sha }}'
