@@ -23,14 +23,14 @@ jobs:
       uses: docker/login-action@v1
       with:
         registry: https://projectcontainers.azurecr.io/
-        username: ${{ secrets.AzureAppService_ContainerUsername_00a96d13e3df44a2a364c938ca7be043 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_7049554e47c84de1899cf3577eb78316 }}
+        username: ${{ secrets.AzureAppService_ContainerUsername_ff4974bc3bb244d38f091bdfcc4804fb }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_02ae21cf55134ab5b8d78c93102cc5f0 }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: projectcontainers.azurecr.io/joshbmillikan/mcr.microsoft.com/appsvc/staticsite:${{ github.sha }}
+        tags: projectcontainers.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_ff4974bc3bb244d38f091bdfcc4804fb }}/ProjectContainers/mcr.microsoft.com/appsvc/staticsite:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'CSC490Server'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_449975c284e346208f528e2783783dcf }}
-        images: 'projectcontainers.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_00a96d13e3df44a2a364c938ca7be043 }}/mcr.microsoft.com/appsvc/staticsite:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_070c9592d21b4c639ad2ec31c8e313fe }}
+        images: 'projectcontainers.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_ff4974bc3bb244d38f091bdfcc4804fb }}/ProjectContainers/mcr.microsoft.com/appsvc/staticsite:${{ github.sha }}'
