@@ -4,7 +4,10 @@ import "github.com/gin-gonic/gin"
 
 func main() {
 	r := gin.Default()
-	r.Static("/", "./www/")
+	r.Static("/CSC_490_project/", "./www/")
+	r.GET("/", func(context *gin.Context) {
+		context.Redirect(301, "/CSC_490_project/")
+	})
 	r.GET("/api", func(context *gin.Context) {
 		context.String(200, "You have reached the api root for the csc 490 project server")
 	})
