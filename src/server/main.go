@@ -3,6 +3,8 @@ package main
 import "github.com/gin-gonic/gin"
 
 func main() {
+	connectDatabase()
+	defer closeDatabase()
 	r := gin.Default()
 	r.Static("/CSC_490_project/", "./www/")
 	r.GET("/", func(context *gin.Context) {
