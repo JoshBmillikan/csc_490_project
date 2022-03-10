@@ -1,2 +1,2 @@
 // set this to the url for the api endpoint
-export const apiRoot = "localhost:8080/"
+export const apiRoot = window.location.hostname + "/api/"

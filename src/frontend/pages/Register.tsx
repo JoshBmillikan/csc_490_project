@@ -5,6 +5,7 @@ import {PulseLoader} from "react-spinners";
 import {Navigate} from "react-router";
 import {apiRoot} from "../data/api";
 import {Link} from "react-router-dom";
+import "../data/theme";
 
 enum RegistrationState {
     input,
@@ -160,9 +161,15 @@ export function Register(){
 
 async function makeRegisterRequest(event: FormEvent<HTMLFormElement>, username: string, email: string, password: string): Promise<boolean> {
     event.preventDefault()
-    const response = await fetch(apiRoot + "register", {
+    const api = apiRoot + "create_account"
+    const responseBody = {
+        username: username,
+        password: password,
+        email: email
+    }
+    const response = await fetch(api, {
         method: "POST",
-        body: new URLSearchParams(`username=${username}&email=${email}&password=${password}`)
+        body: JSON.stringify(responseBody)
     })
 
     return response.ok
