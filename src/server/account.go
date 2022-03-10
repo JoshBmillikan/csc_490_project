@@ -5,7 +5,7 @@ import (
 	"encoding/base64"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/tvdburgt/go-argon2"
+	"golang.org/x/crypto/argon2"
 	"net/http"
 )
 
@@ -36,32 +36,50 @@ func createAccount(context *gin.Context) {
 	context.String(http.StatusOK, "account creation successful")
 }
 
+type hashParams struct {
+	memory      uint32
+	iterations  uint32
+	parallelism uint8
+	saltLength  uint32
+	keyLength   uint32
+}
+
 func hashPassword(password string) (string, error) {
-	hashingContext := argon2.NewContext()
-	salt, err := genSalt(16)
+	params := &hashParams{
+		memory:      64 * 1024,
+		iterations:  3,
+		parallelism: 2,
+		saltLength:  16,
+		keyLength:   32,
+	}
+
+	salt, err := genSalt(params.saltLength)
 	if err != nil {
 		return "", err
 	}
 
-	hash, err := argon2.Hash(hashingContext, []byte(password), salt)
-	if err != nil {
-		return "", err
-	}
+	hash := argon2.IDKey(
+		[]byte(password),
+		salt,
+		params.iterations,
+		params.memory,
+		params.parallelism,
+		params.keyLength)
 
-	result := encode(hash, salt, hashingContext)
+	result := encode(hash, salt, params)
 
 	return result, nil
 }
 
-func encode(rawHash []byte, rawSalt []byte, hashingContext *argon2.Context) string {
+func encode(rawHash []byte, rawSalt []byte, hashingContext *hashParams) string {
 	salt := base64.RawStdEncoding.EncodeToString(rawSalt)
 	hash := base64.RawStdEncoding.EncodeToString(rawHash)
 
 	return fmt.Sprintf(
 		"$argon2id$v=%d$m=%d,t=%d,p=%d$%s$%s",
-		hashingContext.Version, hashingContext.Memory,
-		hashingContext.Iterations,
-		hashingContext.Parallelism,
+		argon2.Version, hashingContext.memory,
+		hashingContext.iterations,
+		hashingContext.parallelism,
 		salt,
 		hash)
 }

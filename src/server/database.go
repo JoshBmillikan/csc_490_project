@@ -22,7 +22,7 @@ func checkUserExists(username string) bool {
 	defer connection.Close()
 	err := connection.QueryRow(
 		context.Background(),
-		"SELECT exists (SELECT 1 FROM user WHERE username = $1 LIMIT 1);",
+		"SELECT exists (SELECT 1 FROM users WHERE username = $1 LIMIT 1);",
 		username).Scan()
 	if err == pgx.ErrNoRows {
 		return false
@@ -37,6 +37,6 @@ func insertAccount(username string, password string, email string) error {
 	connection := connectDatabase()
 	defer connection.Close()
 
-	_, err := connection.Exec(context.Background(), "INSERT INTO user VALUES($1, $2, $3)", username, password, email)
+	_, err := connection.Exec(context.Background(), "INSERT INTO users VALUES($1, $2, $3)", username, password, email)
 	return err
 }
