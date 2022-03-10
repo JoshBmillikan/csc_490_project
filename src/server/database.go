@@ -37,6 +37,6 @@ func insertAccount(username string, password string, email string) error {
 	connection := connectDatabase()
 	defer connection.Close()
 
-	_, err := connection.Exec(context.Background(), "INSERT INTO users VALUES($1, $2, $3)", username, password, email)
+	_, err := connection.Exec(context.Background(), "INSERT INTO users(username, password, email) VALUES($1, $2, $3)", username, password, email)
 	return err
 }
