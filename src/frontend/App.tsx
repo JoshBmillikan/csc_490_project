@@ -17,7 +17,7 @@ function App() {
     let c = 0
     return (
         <ThemeProvider theme={() => theme}>
-            <BrowserRouter>
+            <BrowserRouter basename={'CSC_490_project'}>
 
             <div css={theme => ({
                 backgroundColor: theme.backgroundColor,
