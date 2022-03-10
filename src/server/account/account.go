@@ -1,27 +1,29 @@
-package main
+package account
 
 import (
+	"../database"
 	"crypto/rand"
 	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/argon2"
 	"net/http"
 )
 
-type AccountCreatInfo struct {
+type creatInfo struct {
 	Username string
 	Email    string
 	Password string
 }
 
-func createAccount(context *gin.Context) {
-	var request AccountCreatInfo
+func CreateAccount(context *gin.Context) {
+	var request creatInfo
 	err := context.BindJSON(&request)
 	if err != nil {
 		context.AbortWithStatus(http.StatusBadRequest)
 	}
-	if checkUserExists(request.Username) {
+	if database.CheckUserExists(request.Username) {
 		context.AbortWithStatus(http.StatusConflict)
 	}
 
@@ -29,10 +31,27 @@ func createAccount(context *gin.Context) {
 	if err != nil {
 		context.AbortWithStatus(http.StatusInternalServerError)
 	}
-	err = insertAccount(request.Username, hash, request.Email)
+	err = database.InsertAccount(request.Username, hash, request.Email)
 	if err != nil {
 		context.AbortWithStatus(http.StatusBadGateway)
 	}
+
+	session, err := newSession(request.Username)
+	if err != nil {
+		context.AbortWithStatus(http.StatusInternalServerError)
+	}
+	cookie, err := json.Marshal(session)
+	if err != nil {
+		context.AbortWithStatus(http.StatusInternalServerError)
+	}
+	context.SetCookie(
+		"SHADER_VIEW_SESSION",
+		string(cookie),
+		1209600,
+		"/",
+		"csc490.azurewebsites.net",
+		true,
+		true)
 	context.String(http.StatusOK, "account creation successful")
 }
 
