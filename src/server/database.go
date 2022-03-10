@@ -3,25 +3,40 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/jackc/pgx/v4"
+	"github.com/jackc/pgx"
+	"github.com/jackc/pgx/v4/pgxpool"
 	"os"
 )
 
-var connection *pgx.Conn
-
-func connectDatabase() {
-	conn, err := pgx.Connect(context.Background(), os.Getenv("DATABASE_URL"))
+func connectDatabase() *pgxpool.Pool {
+	conn, err := pgxpool.Connect(context.Background(), os.Getenv("DATABASE_URL"))
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error connecting to database: %v\n", err)
 		os.Exit(-1)
 	}
-	connection = conn
+	return conn
 }
 
-func closeDatabase() {
-	err := connection.Close(context.Background())
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error closing database: %v\n", err)
-		return
+func checkUserExists(username string) bool {
+	connection := connectDatabase()
+	defer connection.Close()
+	err := connection.QueryRow(
+		context.Background(),
+		"SELECT exists (SELECT 1 FROM user WHERE username = $1 LIMIT 1);",
+		username).Scan()
+	if err == pgx.ErrNoRows {
+		return false
+	} else if err != nil {
+		fmt.Fprintf(os.Stderr, "Query failed: %v\n", err)
+		return false
 	}
+	return true
+}
+
+func insertAccount(username string, password string, email string) error {
+	connection := connectDatabase()
+	defer connection.Close()
+
+	_, err := connection.Exec(context.Background(), "INSERT INTO user VALUES($1, $2, $3)", username, password, email)
+	return err
 }
