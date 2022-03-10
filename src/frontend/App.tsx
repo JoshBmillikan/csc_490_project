@@ -3,7 +3,7 @@ import React from 'react';
 import {css, ThemeProvider} from "@emotion/react";
 import {useAppDispatch, useAppSelector} from "./data/store";
 import {Home} from "./pages/Home";
-import {HashRouter, Link} from "react-router-dom";
+import {BrowserRouter, Link} from "react-router-dom";
 import {Route, Routes} from "react-router";
 import {Login} from "./pages/Login";
 import {Register} from "./pages/Register"
@@ -17,7 +17,7 @@ function App() {
     let c = 0
     return (
         <ThemeProvider theme={() => theme}>
-            <HashRouter>
+            <BrowserRouter>
 
             <div css={theme => ({
                 backgroundColor: theme.backgroundColor,
@@ -68,7 +68,7 @@ function App() {
                         <Route path='profile' element={<Profile/>}/>
                     </Routes>
             </div>
-            </HashRouter>
+            </BrowserRouter>
         </ThemeProvider>
     );
 }
