@@ -1,7 +1,9 @@
 package main
 
-import "github.com/gin-gonic/gin"
-import "./account"
+import (
+	"github.com/JoshBmillikan/CSC_490_project/account"
+	"github.com/gin-gonic/gin"
+)
 
 func main() {
 	r := gin.Default()
