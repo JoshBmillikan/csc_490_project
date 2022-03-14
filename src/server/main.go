@@ -11,11 +11,13 @@ func main() {
 	r.GET("/", func(context *gin.Context) {
 		context.Redirect(301, "/CSC_490_project/")
 	})
-	r.POST("/api/create_account", account.CreateAccount)
-	r.GET("/api", func(context *gin.Context) {
+	api := r.Group("/api/")
+	api.POST("/create_account", account.CreateAccount)
+	api.GET("/", func(context *gin.Context) {
 		context.String(200, "You have reached the api root for the csc 490 project server")
 	})
-	auth := r.Group("/account/", account.SessionAuth)
-	auth.GET("/api/account_info") // todo
+	api.POST("/login", account.Login)
+	auth := api.Group("/account/", account.SessionAuth)
+	auth.GET("/account_info") // todo
 	r.Run()
 }

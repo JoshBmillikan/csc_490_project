@@ -9,12 +9,78 @@ import (
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/argon2"
 	"net/http"
+	"strconv"
+	"strings"
 )
 
 type creatInfo struct {
 	Username string
 	Email    string
 	Password string
+}
+
+type loginInfo struct {
+	Username string
+	Password string
+}
+
+func Login(context *gin.Context) {
+	var request loginInfo
+	err := context.BindJSON(&request)
+	if err != nil {
+		context.AbortWithStatus(http.StatusBadRequest)
+	}
+	pass, err := database.GetUserPassword(request.Username)
+	if err != nil {
+		context.AbortWithStatus(http.StatusBadRequest)
+	}
+	parts := strings.Split(pass, "$")
+	salt, err := base64.RawStdEncoding.DecodeString(parts[4])
+	if err != nil {
+		context.AbortWithStatus(http.StatusInternalServerError)
+	}
+
+	hash := parts[5]
+
+	mem, err := strconv.Atoi(parts[1])
+	if err != nil {
+		context.AbortWithStatus(http.StatusInternalServerError)
+	}
+
+	iter, err := strconv.Atoi(parts[2])
+	if err != nil {
+		context.AbortWithStatus(http.StatusInternalServerError)
+	}
+
+	par, err := strconv.Atoi(parts[3])
+	if err != nil {
+		context.AbortWithStatus(http.StatusInternalServerError)
+	}
+
+	params := &hashParams{
+		memory:      uint32(mem),
+		iterations:  uint32(iter),
+		parallelism: uint8(par),
+		saltLength:  uint32(len(salt)),
+		keyLength:   uint32(len(hash)),
+	}
+
+	newHash := argon2.IDKey(
+		[]byte(request.Password),
+		salt,
+		params.iterations,
+		params.memory,
+		params.parallelism,
+		params.keyLength)
+
+	encoded := base64.RawStdEncoding.EncodeToString(newHash)
+
+	if encoded == hash {
+		setSessionCookie(request.Username, context)
+		context.String(http.StatusOK, "login successful")
+	} else {
+		context.AbortWithStatus(http.StatusUnauthorized)
+	}
 }
 
 func CreateAccount(context *gin.Context) {
@@ -35,8 +101,12 @@ func CreateAccount(context *gin.Context) {
 	if err != nil {
 		context.AbortWithStatus(http.StatusBadGateway)
 	}
+	setSessionCookie(request.Username, context)
+	context.String(http.StatusOK, "account creation successful")
+}
 
-	session, err := newSession(request.Username)
+func setSessionCookie(username string, context *gin.Context) {
+	session, err := newSession(username)
 	if err != nil {
 		context.AbortWithStatus(http.StatusInternalServerError)
 	}
@@ -52,7 +122,6 @@ func CreateAccount(context *gin.Context) {
 		"csc490.azurewebsites.net",
 		true,
 		true)
-	context.String(http.StatusOK, "account creation successful")
 }
 
 type hashParams struct {

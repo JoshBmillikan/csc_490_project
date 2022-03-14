@@ -33,6 +33,19 @@ func CheckUserExists(username string) bool {
 	return true
 }
 
+func GetUserPassword(username string) (string, error) {
+	connection := connectDatabase()
+	defer connection.Close()
+
+	row := connection.QueryRow(context.Background(), "SELECT password FROM users WHERE username=$1;", username)
+	var pass string
+	err := row.Scan(&pass)
+	if err != nil {
+		return "", err
+	}
+	return pass, nil
+}
+
 func InsertAccount(username string, password string, email string) error {
 	connection := connectDatabase()
 	defer connection.Close()
