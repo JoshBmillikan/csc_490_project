@@ -1,4 +1,4 @@
-package main
+package database
 
 import (
 	"context"
@@ -17,7 +17,7 @@ func connectDatabase() *pgxpool.Pool {
 	return conn
 }
 
-func checkUserExists(username string) bool {
+func CheckUserExists(username string) bool {
 	connection := connectDatabase()
 	defer connection.Close()
 	err := connection.QueryRow(
@@ -33,7 +33,20 @@ func checkUserExists(username string) bool {
 	return true
 }
 
-func insertAccount(username string, password string, email string) error {
+func GetUserPassword(username string) (string, error) {
+	connection := connectDatabase()
+	defer connection.Close()
+
+	row := connection.QueryRow(context.Background(), "SELECT password FROM users WHERE username=$1;", username)
+	var pass string
+	err := row.Scan(&pass)
+	if err != nil {
+		return "", err
+	}
+	return pass, nil
+}
+
+func InsertAccount(username string, password string, email string) error {
 	connection := connectDatabase()
 	defer connection.Close()
 
