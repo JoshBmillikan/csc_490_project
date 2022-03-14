@@ -1,11 +1,11 @@
 package account
 
 import (
-	"../database"
 	"crypto/rand"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"github.com/JoshBmillikan/CSC_490_project/database"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/argon2"
 	"net/http"
