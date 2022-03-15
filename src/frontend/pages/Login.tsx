@@ -1,10 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import {Theme} from "@emotion/react";
 import React, {FormEvent, useState} from "react";
 import {PulseLoader} from "react-spinners";
 import {Navigate} from "react-router";
 import {apiRoot} from "../data/api";
 import {Link} from "react-router-dom";
+import {Theme} from "@emotion/react";
+import "../data/theme";
+
 
 enum LoginState {
     input,
@@ -147,9 +149,13 @@ export function Login() {
 
 async function makeLoginRequest(event: FormEvent<HTMLFormElement>, username: string, password: string): Promise<boolean> {
     event.preventDefault()
-    const response = await fetch(apiRoot + "login", {
+    const data = {
+        username: username,
+        password: password,
+    }
+    const response = await fetch(apiRoot + "/login", {
         method: "POST",
-        body: new URLSearchParams(`username=${username}&password=${password}`)
+        body: JSON.stringify(data)
     })
 
     return response.ok

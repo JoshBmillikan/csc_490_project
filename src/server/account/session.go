@@ -51,7 +51,7 @@ func SessionAuth(ctx *gin.Context) {
 	}
 	mutex.RUnlock()
 	if !found {
-		ctx.AbortWithStatus(http.StatusUnauthorized)
+		ctx.Redirect(301, "/api/login")
 	} else {
 		ctx.Set("session", token)
 	}
