@@ -153,7 +153,7 @@ async function makeLoginRequest(event: FormEvent<HTMLFormElement>, username: str
         username: username,
         password: password,
     }
-    const response = await fetch(apiRoot + "/login", {
+    const response = await fetch(apiRoot + "login", {
         method: "POST",
         body: JSON.stringify(data)
     })
