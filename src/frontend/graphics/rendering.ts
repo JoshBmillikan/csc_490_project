@@ -1,28 +1,5 @@
 import {mat4, vec3} from "gl-matrix";
 
-export const vertexShaderSource = `
-    attribute vec4 aVertexPosition;
-    attribute vec4 aVertexColor;
-
-    uniform mat4 uModelViewMatrix;
-    uniform mat4 uProjectionMatrix;
-
-    varying lowp vec4 vColor;
-
-    void main(void) {
-      gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
-      vColor = aVertexColor;
-    }
-  `;
-
-const fragShaderSource = `
-    varying lowp vec4 vColor;
-
-    void main(void) {
-      gl_FragColor = vColor;
-    }
-  `;
-
 interface ProgramData {
     program: WebGLProgram,
     vertexPosition: number,
@@ -43,8 +20,10 @@ export class RenderingEngine {
     private modelView = mat4.create()
     private buffers: Buffers
     private program: ProgramData
+    private static instance: RenderingEngine
+    stop: boolean = false
 
-    constructor(fov: number, near: number, far: number) {
+    constructor(fov: number, near: number, far: number, vertexShader: string, fragmentShader: string) {
         const gl = document.querySelector<HTMLCanvasElement>("#webgl")?.getContext("webgl");
         this.gl = gl!
         mat4.perspective(
@@ -54,19 +33,20 @@ export class RenderingEngine {
             near,
             far
         )
-        mat4.translate(this.modelView,this.modelView,[0,0,-2])
+        mat4.translate(this.modelView, this.modelView, [0, 0, -2])
         if (gl) {
             gl.clearColor(0.0, 0.0, 0.0, 1.0)
             gl.clear(gl.COLOR_BUFFER_BIT)
-            const program = this.loadShaders(vertexShaderSource, fragShaderSource)
+            const program = this.loadShaders(vertexShader, fragmentShader)
             this.program = {
                 program: program,
                 vertexPosition: this.gl.getAttribLocation(program, 'aVertexPosition'),
-                vertexColor: this.gl.getAttribLocation(program,"aVertexColor"),
+                vertexColor: this.gl.getAttribLocation(program, "aVertexColor"),
                 projection: this.gl.getUniformLocation(program, "uProjectionMatrix")!,
                 model: this.gl.getUniformLocation(program, "uModelViewMatrix")!
             }
             this.buffers = this.initBuffers()
+            RenderingEngine.instance = this
         } else {
             throw new Error("WebGL initialization failed")
         }
@@ -77,13 +57,19 @@ export class RenderingEngine {
         const deltaTime = currentTime - this.lastTime
         this.lastTime = currentTime
         this.draw(deltaTime)
-        mat4.rotate(this.modelView,this.modelView,deltaTime,vec3.fromValues(0,0,1))
+        mat4.rotate(this.modelView, this.modelView, deltaTime, vec3.fromValues(0, 0, 1))
         requestAnimationFrame((time) => {
-            this.render(time)
+            if (!this.stop)
+                this.render(time)
         })
+
     }
 
-    private draw(deltaTime:number) {
+    static getInstance() {
+        return RenderingEngine.instance
+    }
+
+    private draw(deltaTime: number) {
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0)
         this.gl.clearDepth(1.0)
         this.gl.enable(this.gl.DEPTH_TEST)
@@ -103,15 +89,15 @@ export class RenderingEngine {
             0
         )
         this.gl.enableVertexAttribArray(this.program.vertexPosition)
-        this.gl.bindBuffer(this.gl.ARRAY_BUFFER,this.buffers.color)
-        this.gl.vertexAttribPointer(this.program.vertexColor,numComponents,type,false,0,0)
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.buffers.color)
+        this.gl.vertexAttribPointer(this.program.vertexColor, numComponents, type, false, 0, 0)
         this.gl.enableVertexAttribArray(this.program.vertexColor)
         this.gl.useProgram(this.program.program)
         this.gl.uniformMatrix4fv(this.program.projection, false, this.projection)
         this.gl.uniformMatrix4fv(this.program.model, false, this.modelView)
 
         const vertexCount = 3
-        this.gl.drawArrays(this.gl.TRIANGLE_STRIP,0,vertexCount)
+        this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, vertexCount)
 
     }
 
@@ -121,13 +107,13 @@ export class RenderingEngine {
         const positions = [
             -0.5, -0.5, 0.0, 1.0,
             0.5, -0.5, 0.0, 1.0,
-            0.0,0.5,0.0, 1.0
+            0.0, 0.5, 0.0, 1.0
         ];
         this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(positions), this.gl.STATIC_DRAW)
         const colors = [
-            1.0,0.0,0.0, 1.0,
-            0.0,1.0,0.0, 1.0,
-            0.0,0.0,1.0, 1.0
+            1.0, 0.0, 0.0, 1.0,
+            0.0, 1.0, 0.0, 1.0,
+            0.0, 0.0, 1.0, 1.0
         ];
         const colorBuffer = this.gl.createBuffer();
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, colorBuffer);
@@ -139,11 +125,11 @@ export class RenderingEngine {
         }
     }
 
-    private loadShaders(vertex: string, fragment: string): WebGLProgram {
+    private loadShaders(vertexShader: string, fragmentShader: string): WebGLProgram {
         const program = this.gl.createProgram()
         if (program) {
-            this.gl.attachShader(program, this.compileShader(vertex, this.gl.VERTEX_SHADER))
-            this.gl.attachShader(program, this.compileShader(fragment, this.gl.FRAGMENT_SHADER))
+            this.gl.attachShader(program, this.compileShader(vertexShader, this.gl.VERTEX_SHADER))
+            this.gl.attachShader(program, this.compileShader(fragmentShader, this.gl.FRAGMENT_SHADER))
             this.gl.linkProgram(program)
             return program
         } else throw new Error("Failed to create shader program")

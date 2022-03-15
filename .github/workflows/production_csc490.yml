@@ -1,0 +1,51 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and deploy container app to Azure Web App - csc490
+
+on:
+  push:
+    branches:
+      - production
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: 'ubuntu-latest'
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Log in to registry
+      uses: docker/login-action@v1
+      with:
+        registry: https://csc490containerregistry.azurecr.io/
+        username: ${{ secrets.AzureAppService_ContainerUsername_5f9635a2725842c49fc4c78cbfe94968 }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_55f490da021f4776a7308212a29cc882 }}
+
+    - name: Build and push container image to registry
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: csc490containerregistry.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_5f9635a2725842c49fc4c78cbfe94968 }}/mcr.microsoft.com/appsvc/staticsite:${{ github.sha }}
+        file: ./Dockerfile
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+    - name: Deploy to Azure Web App
+      id: deploy-to-webapp
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'csc490'
+        slot-name: 'production'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_151ac2d9584f4dda8a4b1ad7f574a7e1 }}
+        images: 'csc490containerregistry.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_5f9635a2725842c49fc4c78cbfe94968 }}/mcr.microsoft.com/appsvc/staticsite:${{ github.sha }}'
