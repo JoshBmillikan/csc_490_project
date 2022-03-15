@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import {PulseLoader} from "react-spinners";
+import "../data/theme";
 
 export function Profile() {
     const [getUsername, setUsername] = useState("")
