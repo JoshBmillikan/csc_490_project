@@ -108,6 +108,7 @@
     "@types/react-syntax-highlighter": "^13.5.2",
     "@types/react-tabs": "^2.3.4",
     "@types/styled-components": "^5.1.23",
+    "babel-plugin-prismjs": "^2.1.0",
     "jest-watch-typeahead": "^0.6.5"
   },
   "jest": {
@@ -158,10 +159,5 @@
       "jest-watch-typeahead/testname"
     ],
     "resetMocks": true
-  },
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
   }
 }
