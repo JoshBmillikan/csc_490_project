@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+// @ts-ignore
 import React, {FormEvent, useState} from "react";
 import {PulseLoader} from "react-spinners";
 import {Navigate} from "react-router";
@@ -124,7 +125,7 @@ export function Login() {
                                 "lightblue"
                             }/>
                         </div> :
-                        <input type='submit' value='Sign In' css={theme => ({
+                        <input className={'btn'} type='submit' value='Sign In' css={theme => ({
                             width: '55%',
                             height: '4vh',
                             fontFamily: theme.fontFamily,
@@ -132,6 +133,7 @@ export function Login() {
                             fontSize: '16pt',
                             color: theme.textColor,
                             backgroundColor: theme.elementColor,
+
                         })}/>}
                     </div>
                     <div css={{
