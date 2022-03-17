@@ -42,17 +42,17 @@ func Login(context *gin.Context) {
 
 	hash := parts[5]
 
-	mem, err := strconv.Atoi(parts[1])
+	mem, err := getNum(parts[1])
 	if err != nil {
 		context.AbortWithStatus(http.StatusInternalServerError)
 	}
 
-	iter, err := strconv.Atoi(parts[2])
+	iter, err := getNum(parts[2])
 	if err != nil {
 		context.AbortWithStatus(http.StatusInternalServerError)
 	}
 
-	par, err := strconv.Atoi(parts[3])
+	par, err := getNum(parts[3])
 	if err != nil {
 		context.AbortWithStatus(http.StatusInternalServerError)
 	}
@@ -81,6 +81,11 @@ func Login(context *gin.Context) {
 	} else {
 		context.AbortWithStatus(http.StatusUnauthorized)
 	}
+}
+
+func getNum(in string) (int, error) {
+	parts := strings.Split(in, "=")
+	return strconv.Atoi(parts[1])
 }
 
 func CreateAccount(context *gin.Context) {
