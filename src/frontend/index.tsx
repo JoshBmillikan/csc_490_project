@@ -1,4 +1,8 @@
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
+// @ts-ignore
 import React from 'react';
+// @ts-ignore
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
