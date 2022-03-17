@@ -48,15 +48,9 @@ export function CodeEditor(this: any) {
             onInput={sync}
             spellCheck={false}
         />
-        {/*    <pre id={"highlighting"} aria-hidden={true} >*/}
-        {/*        <code className={"language-js"} id={"highlighting-content"}>{getText}</code>*/}
-        {/*    </pre>*/}
-
             <pre className={'line-numbers'} id={"highlighting"}>
                 <code className='language-glsl'>{getText}</code>
             </pre>
-
-
 
             <select css={theme=>({
                 backgroundColor: theme.backgroundColor,

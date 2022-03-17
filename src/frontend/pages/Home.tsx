@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import {css} from "@emotion/react";
+// @ts-ignore
 import React, {useEffect, useState} from "react";
 import {CodeEditor} from "./Components/CodeEditor";
 import {RenderingEngine} from "../graphics/rendering";
@@ -26,13 +27,12 @@ export function Home() {
 
     return (
         <div>
-
             <span css={css`float: left`}>
             <CodeEditor/>
         </span>
             <span css={css`
               float: right;
-              padding-right: 10%;
+              padding-right: 5%;
               padding-top: 10%;
             `}>
             <canvas
@@ -42,7 +42,7 @@ export function Home() {
                   border-style: ridge;
                   border-color: ${getError ? "rgb(200,50,50);": "rgb(50, 50, 50);"}
                 `}
-                width={"720"}
+                width={"600"}
                 height={"500"}
             />
         </span>
