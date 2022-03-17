@@ -12,8 +12,7 @@ Style sheet for the code editor with syntax highlighting
     position: absolute;
     top: 70px;
     left: 0;
-    overflow: scroll;
-    white-space: nowrap; /* Allows textarea to scroll horizontally */
+    overflow: auto;
 }
 
 #editing, #highlighting, #highlighting * {
@@ -28,6 +27,8 @@ Style sheet for the code editor with syntax highlighting
     background: transparent;
     caret-color: white;
     resize: none;
+    white-space: nowrap;
+
 }
 
 #highlighting {

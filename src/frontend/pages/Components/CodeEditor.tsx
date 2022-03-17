@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import {css} from "@emotion/react";
 import {useEffect, useState} from "react";
-import {useAppDispatch, useAppSelector} from "./data/store";
-import {ShaderState} from "./data/reducers";
-//import Prism from "prismjs";
-import "./style.css";
+import {useAppDispatch, useAppSelector} from "../../data/store";
+import {ShaderState} from "../../data/reducers";
+// @ts-ignore
+import Prism from "prismjs";
+import "./style.css"
 
 export function CodeEditor(this: any) {
     const selector = useAppSelector((state) => state.shader)
@@ -26,6 +27,11 @@ export function CodeEditor(this: any) {
         return () => clearTimeout(t)
     },[dispatch, getText, selector.selectedShaderName])
 
+    // Highlights the code editor text
+    // Highlights upon mounting and then everytime the text is changed
+    useEffect (()=>{
+        Prism.highlightAll();
+    },[getText])
 
     return (
         <div css={css`
@@ -42,9 +48,15 @@ export function CodeEditor(this: any) {
             onInput={sync}
             spellCheck={false}
         />
-            <pre id={"highlighting"} aria-hidden={true} >
-                <code className={"language-js"} id={"highlighting-content"}>{getText}</code>
+        {/*    <pre id={"highlighting"} aria-hidden={true} >*/}
+        {/*        <code className={"language-js"} id={"highlighting-content"}>{getText}</code>*/}
+        {/*    </pre>*/}
+
+            <pre className={'line-numbers'} id={"highlighting"}>
+                <code className='language-glsl'>{getText}</code>
             </pre>
+
+
 
             <select css={theme=>({
                 backgroundColor: theme.backgroundColor,

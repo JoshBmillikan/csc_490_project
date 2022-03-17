@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import {css} from "@emotion/react";
 import React, {useEffect, useState} from "react";
-import {CodeEditor} from "../CodeEditor";
+import {CodeEditor} from "./Components/CodeEditor";
 import {RenderingEngine} from "../graphics/rendering";
 import {useAppSelector} from "../data/store";
 
