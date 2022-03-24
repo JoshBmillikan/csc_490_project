@@ -1,6 +1,7 @@
 package account
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -57,19 +58,24 @@ func SessionAuth(ctx *gin.Context) {
 	}
 }
 
-func newSession(username string) (IdToken, error) {
+func newSession(username string) (string, error) {
 	rnd := rand.New(rand.NewSource(1))
 	id, err := uuid.NewRandomFromReader(rnd)
 	if err != nil {
-		return IdToken{}, err
+		return "", err
 	}
 
 	token := IdToken{
 		username: username,
 		uuid:     id,
 	}
+	bytes, err := id.MarshalBinary()
+	if err != nil {
+		return "", err
+	}
+	encoded := base64.RawStdEncoding.EncodeToString(bytes)
 	go addToken(token)
-	return token, nil
+	return encoded, nil
 }
 
 func addToken(token IdToken) {
