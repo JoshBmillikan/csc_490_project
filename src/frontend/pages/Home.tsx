@@ -11,13 +11,15 @@ export function Home() {
 
     const vertex = useAppSelector((state) => state.shader.vertex)
     const fragment = useAppSelector((state) => state.shader.fragment)
-    const [getError,setError] = useState(false)
+    const [getError, setError] = useState(false)
+    const [getFps, setFps] = useState(0.0)
+
     useEffect(() => {
         try {
             let instance = RenderingEngine.getInstance()
             if (instance)
                 instance.stop = true;
-            let renderingEngine = new RenderingEngine(45, 0.1, 100.0, vertex, fragment)
+            let renderingEngine = new RenderingEngine(45, 0.1, 100.0, vertex, fragment, (time: number) => setFps(1/time))
             renderingEngine.render(0)
             setError(false)
         } catch (error: any) {
@@ -40,12 +42,21 @@ export function Home() {
                 css={css`
                   border-width: 2px;
                   border-style: ridge;
-                  border-color: ${getError ? "rgb(200,50,50);": "rgb(50, 50, 50);"}
+                  border-color: ${getError ? "rgb(200,50,50);" : "rgb(50, 50, 50);"}
                 `}
                 width={"600"}
                 height={"500"}
             />
+                <div>
+                <label css={{
+                    backgroundColor: "silver",
+                    textColor: "black",
+                    width: '20%'
+                }}
+                >FPS: {getFps.toFixed(2)}</label>
+            </div>
         </span>
+
         </div>
     )
 }
