@@ -39,7 +39,14 @@ function App() {
                     float: 'right',
                     userSelect: 'none'
                 }}>
-                    <Link to={'login'}>Sign In</Link>
+                    <Link to={'login'} css={css`padding-right: 5%`}>
+                    <span className="material-icons">
+                        login
+                    </span>
+                        <span css={css`padding-left: 2%`}>
+                            Sign in
+                        </span>
+                    </Link>
                     <select
                         css={theme=>({
                             backgroundColor:theme.backgroundColor,

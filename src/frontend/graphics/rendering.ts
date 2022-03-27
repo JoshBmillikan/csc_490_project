@@ -81,7 +81,17 @@ export class RenderingEngine {
     }
 
     loadModel(file: File) {
+        //todo
+    }
 
+    setProjection(fov: number, near: number, far: number) {
+        mat4.perspective(
+            this.projection,
+            fov * Math.PI / 180,
+            this.gl.canvas.clientWidth / this.gl.canvas.clientHeight,
+            near,
+            far
+        )
     }
 
     private draw(deltaTime: number) {
