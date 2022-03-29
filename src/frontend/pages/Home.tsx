@@ -47,7 +47,7 @@ export function Home() {
 
     useEffect(() => {
         const {fov, zNear, zFar} = getSettings
-        RenderingEngine.getInstance().setProjection(fov,zNear,zFar)
+        RenderingEngine.getInstance().setProjection(fov, zNear, zFar)
     }, [getSettings])
 
     return (
@@ -73,10 +73,27 @@ export function Home() {
                     </span>
                 </button>
                         </div><div>
-                <button css={{backgroundColor: 'inherit', color: 'inherit', border: 'hidden'}}>
+                <button css={{backgroundColor: 'inherit', color: 'inherit', border: 'hidden'}}
+                        onClick={() => {
+                            const file = document.getElementById("file_upload")
+                            file.click()
+                        }}
+                >
                     <span className="material-icons">
                         file_upload
                     </span>
+                    <input type={'file'}
+                           name={'file upload'}
+                           id={'file_upload'}
+                           css={css`visibility: hidden; 
+                                user-select: none;
+                                width: 0;
+                            `}
+                           onChange={(event) => {
+                               alert(event.target.files[0].name)
+                               //todo
+                           }}
+                    />
                 </button>
                     </div>
                 </div>
@@ -115,9 +132,10 @@ export function Home() {
                         setShowSettings(false)
                     }}
                 >
-                    <label>FOV:</label><input name={'fov'} id={'fov'} type={"number"} defaultValue={getSettings.fov}/><br/>
+                    <label>FOV:</label><input name={'fov'} id={'fov'} type={"number"}
+                                              defaultValue={getSettings.fov}/><br/>
 
-                    <button onClick={()=>setShowSettings(false)}>
+                    <button onClick={() => setShowSettings(false)}>
                         Cancel
                     </button>
                     <input type={'submit'} value={'Ok'}/>
