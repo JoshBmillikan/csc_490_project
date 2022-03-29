@@ -35,12 +35,12 @@ func Login(context *gin.Context) {
 		context.AbortWithStatus(http.StatusBadRequest)
 	}
 	parts := strings.Split(pass, "$")
-	salt, err := base64.RawStdEncoding.DecodeString(parts[4])
+	salt, err := base64.RawStdEncoding.DecodeString(parts[5])
 	if err != nil {
 		context.AbortWithStatus(http.StatusInternalServerError)
 	}
 
-	hash := parts[5]
+	hash := parts[6]
 
 	mem, err := getNum(parts[1])
 	if err != nil {
@@ -169,7 +169,7 @@ func encode(rawHash []byte, rawSalt []byte, hashingContext *hashParams) string {
 	hash := base64.RawStdEncoding.EncodeToString(rawHash)
 
 	return fmt.Sprintf(
-		"$argon2id$v=%d$m=%d,t=%d,p=%d$%s$%s",
+		"$argon2id$v=%d$m=%d$t=%d$p=%d$%s$%s",
 		argon2.Version, hashingContext.memory,
 		hashingContext.iterations,
 		hashingContext.parallelism,
