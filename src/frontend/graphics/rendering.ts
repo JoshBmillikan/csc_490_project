@@ -22,8 +22,17 @@ export class RenderingEngine {
     private program: ProgramData
     private static instance: RenderingEngine
     stop: boolean = false
+    private timerCallback: Function | null
 
-    constructor(fov: number, near: number, far: number, vertexShader: string, fragmentShader: string) {
+    constructor(
+        fov: number,
+        near: number,
+        far: number,
+        vertexShader: string,
+        fragmentShader: string,
+        timerCallback: Function | null = null
+    ) {
+        this.timerCallback = timerCallback
         const gl = document.querySelector<HTMLCanvasElement>("#webgl")?.getContext("webgl");
         this.gl = gl!
         mat4.perspective(
@@ -33,7 +42,7 @@ export class RenderingEngine {
             near,
             far
         )
-        mat4.translate(this.modelView, this.modelView, [0, 0, -2])
+        mat4.translate(this.modelView, this.modelView, [0, 0, -3])
         if (gl) {
             gl.clearColor(0.0, 0.0, 0.0, 1.0)
             gl.clear(gl.COLOR_BUFFER_BIT)
@@ -57,7 +66,9 @@ export class RenderingEngine {
         const deltaTime = currentTime - this.lastTime
         this.lastTime = currentTime
         this.draw(deltaTime)
-        mat4.rotate(this.modelView, this.modelView, deltaTime, vec3.fromValues(0, 0, 1))
+        mat4.rotate(this.modelView, this.modelView, deltaTime, vec3.fromValues(0.5, 0.5, .4))
+        if (this.timerCallback)
+            this.timerCallback(deltaTime)
         requestAnimationFrame((time) => {
             if (!this.stop)
                 this.render(time)
@@ -67,6 +78,20 @@ export class RenderingEngine {
 
     static getInstance() {
         return RenderingEngine.instance
+    }
+
+    loadModel(file: File) {
+        //todo
+    }
+
+    setProjection(fov: number, near: number, far: number) {
+        mat4.perspective(
+            this.projection,
+            fov * Math.PI / 180,
+            this.gl.canvas.clientWidth / this.gl.canvas.clientHeight,
+            near,
+            far
+        )
     }
 
     private draw(deltaTime: number) {

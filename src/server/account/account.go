@@ -3,7 +3,6 @@ package account
 import (
 	"crypto/rand"
 	"encoding/base64"
-	"encoding/json"
 	"fmt"
 	"github.com/JoshBmillikan/CSC_490_project/database"
 	"github.com/gin-gonic/gin"
@@ -115,13 +114,10 @@ func setSessionCookie(username string, context *gin.Context) {
 	if err != nil {
 		context.AbortWithStatus(http.StatusInternalServerError)
 	}
-	cookie, err := json.Marshal(session)
-	if err != nil {
-		context.AbortWithStatus(http.StatusInternalServerError)
-	}
+
 	context.SetCookie(
 		"SHADER_VIEW_SESSION",
-		string(cookie),
+		session,
 		1209600,
 		"/",
 		"csc490.azurewebsites.net",
