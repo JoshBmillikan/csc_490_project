@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import {css, useTheme} from "@emotion/react";
-// @ts-ignore
 import React, {useEffect, useState} from "react";
 import {CodeEditor} from "./Components/CodeEditor";
 import {RenderingEngine} from "../graphics/rendering";
 import {useAppSelector} from "../data/store";
 import Modal from "react-modal";
+import {FileFormats, Unified3dLoader} from 'unified-3d-loader';
 
 export function Home() {
     const vertex = useAppSelector((state) => state.shader.vertex)
@@ -77,7 +77,7 @@ export function Home() {
                 <button css={{backgroundColor: 'inherit', color: 'inherit', border: 'hidden'}}
                         onClick={() => {
                             const file = document.getElementById("file_upload")
-                            file.click()
+                            file?.click()
                         }}
                 >
                     <span className="material-icons">
@@ -90,9 +90,18 @@ export function Home() {
                                 user-select: none;
                                 width: 0;
                             `}
-                           onChange={(event) => {
-                               alert(event.target.files[0].name)
-                               //todo
+                           onChange={async (event) => {
+                               if (event.target.files) {
+                                   const loader = new Unified3dLoader()
+                                   const buf = await event.target.files[0].arrayBuffer()
+                                   const indexed = await loader.load(buf, FileFormats.OBJ,{
+                                       index: {
+                                           normals: true,
+                                           vertices: true
+                                       }
+                                   })
+                                   RenderingEngine.getInstance().loadModel(indexed[0])
+                               }
                            }}
                     />
                 </button>

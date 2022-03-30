@@ -1,4 +1,5 @@
 import {mat4, vec3} from "gl-matrix";
+import {Mesh, VectorListType} from "unified-3d-loader/src/types";
 
 interface ProgramData {
     program: WebGLProgram,
@@ -22,7 +23,7 @@ export class RenderingEngine {
     private program: ProgramData
     private static instance: RenderingEngine
     stop: boolean = false
-    private timerCallback: Function | null
+    private readonly timerCallback: Function | null
 
     constructor(
         fov: number,
@@ -80,7 +81,7 @@ export class RenderingEngine {
         return RenderingEngine.instance
     }
 
-    loadModel(file: File) {
+    loadModel(file: Mesh<VectorListType, VectorListType>) {
         //todo
     }
 

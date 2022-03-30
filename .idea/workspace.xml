@@ -4,14 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d641fa09-28f1-494f-942f-32553803c01c" name="Changes" comment="added settings menu">
+    <list default="true" id="d641fa09-28f1-494f-942f-32553803c01c" name="Changes" comment="blarg">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/graphics/rendering.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/graphics/rendering.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/frontend/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/pages/Home.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -57,7 +67,7 @@
       <workItem from="1648083969404" duration="3135000" />
       <workItem from="1648318780265" duration="11000" />
       <workItem from="1648399844879" duration="7316000" />
-      <workItem from="1648648830369" duration="407000" />
+      <workItem from="1648648830369" duration="5392000" />
     </task>
     <task id="LOCAL-00001" summary="added fps counter">
       <created>1648086063284</created>
@@ -73,7 +83,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648407455175</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="blarg">
+      <created>1648649252355</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1648649252355</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -93,6 +110,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added fps counter" />
     <MESSAGE value="added settings menu" />
-    <option name="LAST_COMMIT_MESSAGE" value="added settings menu" />
+    <MESSAGE value="blarg" />
+    <option name="LAST_COMMIT_MESSAGE" value="blarg" />
   </component>
 </project>
