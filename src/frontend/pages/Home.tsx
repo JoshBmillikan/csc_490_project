@@ -43,6 +43,7 @@ export function Home() {
         } catch (error: any) {
             setError(true)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [vertex, fragment])
 
     useEffect(() => {
