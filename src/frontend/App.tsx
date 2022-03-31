@@ -9,65 +9,67 @@ import {Login} from "./pages/Login";
 import {Register} from "./pages/Register"
 import {themes} from "./data/theme";
 import {Profile} from "./pages/Account";
+import './App.css'
 
 function App() {
+    // Theme import selector
     const theme = useAppSelector((state) => state.ui.theme)
 
     const dispatch = useAppDispatch()
     let c = 0
+
     return (
         <ThemeProvider theme={() => theme}>
             <BrowserRouter basename={'CSC_490_project'}>
 
-            <div css={theme => ({
-                backgroundColor: theme.backgroundColor,
-                height: '100vh',
-                width: '100vw'
+            <div
+                className={'background'}
+                css={theme => ({
+                backgroundColor: theme.backgroundColor
             })}>
                 <header
+                    className={'header'}
                     css={theme => (css`
                   background-color: ${theme.secondaryColor};
-                  text-align: center;
-                  user-select: none;
-                  height: 5%;
-                  font: 24pt bold;
                   color: ${theme.textColor};
+                  font-family: ${theme.fontFamily};
                 `)}
-                >Shader Viewer
-                </header>
-                <div css={{
-                    float: 'right',
-                    userSelect: 'none'
-                }}>
-                    <Link to={'login'} css={css`padding-right: 5%`}>
+                >
+                    <h1 className={'header-title'}>Shader Viewer</h1>
+                    <div className={'header-signin'}>
+                        <Link className={'login'}
+                              css={theme=>(css`
+                              color: ${theme.textColor};
+                              :hover{color: ${theme.secondaryTextColor}}`)}
+                              to={'login'}>
                     <span className="material-icons">
                         login
                     </span>
-                        <span css={css`padding-left: 2%`}>
-                            Sign in
-                        </span>
-                    </Link>
-                    <select
-                        css={theme=>({
-                            backgroundColor:theme.backgroundColor,
-                            color: theme.textColor,
-                            borderColor: theme.borderColor,
-                            borderStyle: 'inset'
-                        })}
-                        onChange={(event)=> {
-                            const name = event.target.value
-                            if (name) {
-                                dispatch({type:"setTheme", themeName: name})
+                            <span>Sign in</span>
+                        </Link>
+                        <select className={'themeSelect'}
+                            css={theme=>(css`
+                                background-color: ${theme.secondaryColor};
+                                color: ${theme.textColor};
+                                border-color: ${theme.borderColor};
+                                :hover{color: ${theme.secondaryTextColor};}
+                            `)}
+                            onChange={(event)=> {
+                                const name = event.target.value
+                                if (name) {
+                                    dispatch({type:"setTheme", themeName: name})
+                                }
                             }
-                        }
-                    }>{
-                        Object.keys(themes).map((it) => {
-                            return (<option value={it} key={c++}>
-                                {it}
-                            </option>)
-                        })}
-                    </select>
-                </div>
+                            }>{
+                            Object.keys(themes).map((it) => {
+                                return (<option value={it} key={c++}>
+                                    {it}
+                                </option>)
+                            })}
+                        </select>
+                    </div>
+                </header>
+
                     <Routes>
                         <Route path='/' element={<Home/>}/>
                         <Route path='login' element={<Login/>}/>
