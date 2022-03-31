@@ -6,8 +6,11 @@ import {CodeEditor} from "./Components/CodeEditor";
 import {RenderingEngine} from "../graphics/rendering";
 import {useAppSelector} from "../data/store";
 import Modal from "react-modal";
+import './Styles/Home.css'
+import {Settings} from "./Components/Settings";
 
 export function Home() {
+    // States
     const vertex = useAppSelector((state) => state.shader.vertex)
     const fragment = useAppSelector((state) => state.shader.fragment)
     const [getError, setError] = useState(false)
@@ -18,19 +21,7 @@ export function Home() {
         zNear: 0.1,
         zFar: 100,
     })
-    const theme = useTheme()
-    const modalStyle = {
-        content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            marginRight: '-50%',
-            transform: 'translate(-50%, -50%)',
-            backgroundColor: theme.backgroundColor,
-            color: theme.textColor,
-        },
-    };
+    // Render with webgl on mount and anytime a shader changes
     useEffect(() => {
         try {
             let instance = RenderingEngine.getInstance()
@@ -45,102 +36,57 @@ export function Home() {
         }
     }, [vertex, fragment])
 
+    // Render the fov on the settings change
     useEffect(() => {
         const {fov, zNear, zFar} = getSettings
-        RenderingEngine.getInstance().setProjection(fov, zNear, zFar)
+        RenderingEngine.getInstance().setProjection(fov,zNear,zFar)
     }, [getSettings])
+
+    // Handle the fov change by setting fov state
+    const onFovChange = (fov:any) =>{
+        console.log(fov)
+        setSettings({...getSettings, fov})
+    }
 
     return (
         <div>
-            <span css={css`float: left`}>
+            <span className={'codeEditor'}>
             <CodeEditor/>
         </span>
-            <span css={css`
-              float: right;
-              padding-right: 5%;
-              padding-top: 10%;
-            `}>
-                <div css={theme => css`
-                  float: right;
+            <span className={'renderWindow'}>
+                <div className={'btns'} css={theme => css`
                   background-color: ${theme.backgroundColor};
-                  color: silver;
                 `}>
                     <div>
-                <button css={{backgroundColor: 'inherit', color: 'inherit', border: 'hidden'}}
-                        onClick={() => setShowSettings(!getShowSettings)}>
+                <button className={'btns-settings'} css={{backgroundColor: 'inherit', color: 'inherit', border: 'hidden'}}
+                        data-bs-toggle={'modal'} data-bs-target={'#exampleModal'}>
                     <span className="material-icons">
                         settings
                     </span>
                 </button>
                         </div><div>
-                <button css={{backgroundColor: 'inherit', color: 'inherit', border: 'hidden'}}
-                        onClick={() => {
-                            const file = document.getElementById("file_upload")
-                            file.click()
-                        }}
-                >
+                <button  className={'btns-upload'}   css={{backgroundColor: 'inherit', color: 'inherit', border: 'hidden'}}>
                     <span className="material-icons">
                         file_upload
                     </span>
-                    <input type={'file'}
-                           name={'file upload'}
-                           id={'file_upload'}
-                           css={css`visibility: hidden; 
-                                user-select: none;
-                                width: 0;
-                            `}
-                           onChange={(event) => {
-                               alert(event.target.files[0].name)
-                               //todo
-                           }}
-                    />
                 </button>
                     </div>
                 </div>
             <canvas
                 id={"webgl"}
+                className={'webgl'}
                 css={css`
-                  border-width: 2px;
-                  border-style: ridge;
                   border-color: ${getError ? "rgb(200,50,50);" : "rgb(50, 50, 50);"}
                 `}
-                width={"600"}
-                height={"500"}
+                width={"600%"}
+                height={"600%"}
             />
                 <div>
-                <label css={{
-                    backgroundColor: "silver",
-                    textColor: "black",
-                    width: '20%'
-                }}
+                <label className={'fps'} css={theme=>({color: theme.textColor})}
                 >FPS: {getFps.toFixed(2)}</label>
             </div>
         </span>
-            <Modal
-                isOpen={getShowSettings}
-                onRequestClose={() => setShowSettings(false)}
-                style={modalStyle}
-            >
-                <form
-                    id={'settings'}
-                    onSubmit={(it) => {
-                        it.preventDefault()
-                        setSettings({
-                            ...getSettings,
-                            fov: parseFloat((document.getElementById('fov') as HTMLInputElement).value),
-                        })
-                        setShowSettings(false)
-                    }}
-                >
-                    <label>FOV:</label><input name={'fov'} id={'fov'} type={"number"}
-                                              defaultValue={getSettings.fov}/><br/>
-
-                    <button onClick={() => setShowSettings(false)}>
-                        Cancel
-                    </button>
-                    <input type={'submit'} value={'Ok'}/>
-                </form>
-            </Modal>
+            <Settings fov={onFovChange} fovNum={getSettings.fov}></Settings>
         </div>
     )
 }

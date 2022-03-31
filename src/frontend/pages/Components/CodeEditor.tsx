@@ -34,11 +34,29 @@ export function CodeEditor(this: any) {
     },[getText])
 
     return (
-        <div css={css`
-          padding-left: 10%;
-          padding-top: 10%;
-          user-select: none;
-        `}>
+        <div >
+            <div className={'contain'}>
+                <select className={'selector'} css={theme=>({
+                    backgroundColor: theme.backgroundColor,
+                    color: theme.textColor,
+                    borderColor: theme.borderColor,
+                    borderStyle: 'inset'
+                })}
+                        onChange={(event)=>{
+                            const name = event.target.value;
+                            if (name){
+                                dispatch({type:'selectShader', shaderName: name, newShader: null})
+                            }
+                        }
+                        }>
+                    {Object.keys(dropData).map((it:string)=> {
+                        return (<option value={it} key={i++}>
+                            {it}
+                        </option>)
+                    })}
+                </select>
+            </div>
+            <div className={'editorContainer'}>
         <textarea
             className={"code"}
             id={"editing"}
@@ -51,26 +69,8 @@ export function CodeEditor(this: any) {
             <pre className={'line-numbers'} id={"highlighting"}>
                 <code className='language-glsl'>{getText}</code>
             </pre>
+            </div>
 
-            <select css={theme=>({
-                backgroundColor: theme.backgroundColor,
-                color: theme.textColor,
-                borderColor: theme.borderColor,
-                borderStyle: 'inset'
-            })}
-                onChange={(event)=>{
-                    const name = event.target.value;
-                    if (name){
-                        dispatch({type:'selectShader', shaderName: name, newShader: null})
-                    }
-                }
-            }>
-                {Object.keys(dropData).map((it:string)=> {
-                    return (<option value={it} key={i++}>
-                        {it}
-                    </option>)
-                })}
-            </select>
         </div>
     )
 }
