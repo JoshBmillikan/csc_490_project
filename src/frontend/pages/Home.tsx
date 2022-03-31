@@ -82,7 +82,7 @@ export function Home() {
                 height={"600%"}
             />
                 <div>
-                <label className={'fps'}
+                <label className={'fps'} css={theme=>({color: theme.textColor})}
                 >FPS: {getFps.toFixed(2)}</label>
             </div>
         </span>
