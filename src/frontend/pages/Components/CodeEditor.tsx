@@ -52,7 +52,7 @@ export function CodeEditor(this: any) {
                 <code className='language-glsl'>{getText}</code>
             </pre>
 
-            <select css={theme=>({
+            <select className={'selector'} css={theme=>({
                 backgroundColor: theme.backgroundColor,
                 color: theme.textColor,
                 borderColor: theme.borderColor,

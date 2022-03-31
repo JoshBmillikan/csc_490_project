@@ -1,0 +1,27 @@
+.codeEditor{
+    float: left;
+}
+
+.renderWindow{
+    float: right;
+    padding-left: 5%;
+    padding-right: 5%;
+    transform: translateY(50%);
+}
+.btns{
+    float: right;
+    color: darkgray;
+}
+.btns-settings:hover, .btns-upload:hover{
+    color: #797979;
+}
+
+.webgl{
+    border-width: 2px;
+    border-style: ridge;
+}
+.fps{
+    background-color: transparent;
+    color: white;
+    width: 20%;
+}
