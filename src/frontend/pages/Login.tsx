@@ -72,7 +72,14 @@ export function Login() {
                     <button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>}
 
                     <p className="mt-5 mb-3 text-muted">Don't have an account?
-                        <Link to={'../register'}>Create One</Link>
+                        <Link to={'../register'}
+                              className={'register'}
+                              css={theme=>(css`
+                              color: ${theme.textColor};
+                              :hover{color: ${theme.secondaryTextColor}}`)}
+                              >
+                            <button>Register</button>
+                        </Link>
                     </p>
             </form>
         </main>

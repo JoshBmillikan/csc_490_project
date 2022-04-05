@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import {Theme} from "@emotion/react";
+import {css, Theme} from "@emotion/react";
 import React, {FormEvent, useState} from "react";
 import {PulseLoader} from "react-spinners";
 import {Navigate} from "react-router";
@@ -39,12 +39,12 @@ export function Register(){
         }
     }
     return(
-        <div css={{paddingTop: '5vh'}}>
+        <div css={{paddingTop: '17vh'}}>
             <div css={theme => ({
                 background: theme.foregroundColor,
                 paddingTop: "3vh",
                 width: '25%',
-                height: '75vh',
+                height: '85vh',
                 display: 'block',
                 marginLeft: 'auto',
                 marginRight: 'auto',
@@ -138,7 +138,7 @@ export function Register(){
                         </div> :
                         <input type='submit' value='Sign Up' css={theme => ({
                             width: '55%',
-                            height: '4vh',
+                            height: '6vh',
                             fontFamily: theme.fontFamily,
                             fontWeight: 'bold',
                             fontSize: '16pt',
@@ -151,7 +151,15 @@ export function Register(){
                         textAlign: 'center',
                         fontSize: '12pt',
                     }}>
-                        <p>Already have an account? <Link to={'../login'}>Login</Link> </p>
+                        <p>Already have an account?
+                            <Link to={'../login'}
+                                  className={'login'}
+                                  css={theme=>(css`
+                              color: ${theme.textColor};
+                              :hover{color: ${theme.secondaryTextColor}}`)}
+                            >
+                                <button>Sign in</button>
+                            </Link> </p>
                     </div>
                 </form>
             </div>
