@@ -5,6 +5,7 @@ import (
 	"encoding/base64"
 	"fmt"
 	"github.com/JoshBmillikan/CSC_490_project/database"
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/argon2"
 	"net/http"
@@ -29,7 +30,7 @@ func Login(context *gin.Context) {
 	if err != nil {
 		context.AbortWithStatus(http.StatusBadRequest)
 	}
-	pass, err := database.GetUserPassword(request.Username)
+	pass, id, err := database.GetUserPassword(request.Username)
 	if err != nil {
 		context.AbortWithStatus(http.StatusBadRequest)
 	}
@@ -75,11 +76,15 @@ func Login(context *gin.Context) {
 	encoded := base64.RawStdEncoding.EncodeToString(newHash)
 
 	if encoded == hash {
-		setSessionCookie(request.Username, context)
+		sessions.Default(context).Set("USER_ID", id)
 		context.String(http.StatusOK, "login successful")
 	} else {
 		context.AbortWithStatus(http.StatusUnauthorized)
 	}
+}
+
+func IsLoggedIn(context *gin.Context) bool {
+	return sessions.Default(context).Get("USER_ID") != nil
 }
 
 func getNum(in string) (int, error) {
@@ -101,28 +106,12 @@ func CreateAccount(context *gin.Context) {
 	if err != nil {
 		context.AbortWithStatus(http.StatusInternalServerError)
 	}
-	err = database.InsertAccount(request.Username, hash, request.Email)
+	id, err := database.InsertAccount(request.Username, hash, request.Email)
 	if err != nil {
 		context.AbortWithStatus(http.StatusBadGateway)
 	}
-	setSessionCookie(request.Username, context)
+	sessions.Default(context).Set("USER_ID", id)
 	context.String(http.StatusOK, "account creation successful")
-}
-
-func setSessionCookie(username string, context *gin.Context) {
-	session, err := newSession(username)
-	if err != nil {
-		context.AbortWithStatus(http.StatusInternalServerError)
-	}
-
-	context.SetCookie(
-		"SHADER_VIEW_SESSION",
-		session,
-		1209600,
-		"/",
-		"csc490.azurewebsites.net",
-		true,
-		true)
 }
 
 type hashParams struct {
