@@ -37,15 +37,23 @@ function App() {
                 >
                     <h1 className={'header-title'}>Shader Viewer</h1>
                     <div className={'header-signin'}>
-                        <Link className={'login'}
+                        <Link className={'headerButton'}
+                              css={theme=>(css`
+                              color: ${theme.textColor};
+                              :hover{color: ${theme.secondaryTextColor}}`)}
+                              to={'../'}>
+                            <button>Home</button>
+                        </Link>
+                        <Link className={'headerButton'}
                               css={theme=>(css`
                               color: ${theme.textColor};
                               :hover{color: ${theme.secondaryTextColor}}`)}
                               to={'login'}>
-                    <span className="material-icons">
+                            <button>Sign in</button>
+                            {/* <span className="material-icons">
                         login
                     </span>
-                            <span>Sign in</span>
+                            <span>Sign in</span> */}
                         </Link>
                         <select className={'themeSelect'}
                             css={theme=>(css`
