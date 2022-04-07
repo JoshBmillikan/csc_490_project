@@ -1,4 +1,5 @@
 import {mat4, vec3} from "gl-matrix";
+import {IObj} from "@hippie/obj";
 
 interface ProgramData {
     program: WebGLProgram,
@@ -10,7 +11,8 @@ interface ProgramData {
 
 interface Buffers {
     position: WebGLBuffer,
-    color: WebGLBuffer
+    color: WebGLBuffer,
+    index: WebGLBuffer | null,
 }
 
 export class RenderingEngine {
@@ -21,9 +23,22 @@ export class RenderingEngine {
     private buffers: Buffers
     private program: ProgramData
     private static instance: RenderingEngine
+    private vertexCount = 3
     stop: boolean = false
+    private readonly timerCallback: Function | null
+    private model: IObj | null
 
-    constructor(fov: number, near: number, far: number, vertexShader: string, fragmentShader: string) {
+    constructor(
+        fov: number,
+        near: number,
+        far: number,
+        vertexShader: string,
+        fragmentShader: string,
+        timerCallback: Function | null = null,
+        model: IObj | null = null
+    ) {
+        this.timerCallback = timerCallback
+        this.model = model
         const gl = document.querySelector<HTMLCanvasElement>("#webgl")?.getContext("webgl");
         this.gl = gl!
         mat4.perspective(
@@ -33,7 +48,7 @@ export class RenderingEngine {
             near,
             far
         )
-        mat4.translate(this.modelView, this.modelView, [0, 0, -2])
+        mat4.translate(this.modelView, this.modelView, [0, 0, -3])
         if (gl) {
             gl.clearColor(0.0, 0.0, 0.0, 1.0)
             gl.clear(gl.COLOR_BUFFER_BIT)
@@ -45,7 +60,10 @@ export class RenderingEngine {
                 projection: this.gl.getUniformLocation(program, "uProjectionMatrix")!,
                 model: this.gl.getUniformLocation(program, "uModelViewMatrix")!
             }
-            this.buffers = this.initBuffers()
+            if (model)
+                this.buffers = this.loadModel(model)
+            else
+                this.buffers = this.initBuffers()
             RenderingEngine.instance = this
         } else {
             throw new Error("WebGL initialization failed")
@@ -57,7 +75,9 @@ export class RenderingEngine {
         const deltaTime = currentTime - this.lastTime
         this.lastTime = currentTime
         this.draw(deltaTime)
-        mat4.rotate(this.modelView, this.modelView, deltaTime, vec3.fromValues(0, 0, 1))
+        mat4.rotate(this.modelView, this.modelView, deltaTime, vec3.fromValues(0.5, 0.5, .4))
+        if (this.timerCallback)
+            this.timerCallback(deltaTime)
         requestAnimationFrame((time) => {
             if (!this.stop)
                 this.render(time)
@@ -67,6 +87,46 @@ export class RenderingEngine {
 
     static getInstance() {
         return RenderingEngine.instance
+    }
+
+    private loadModel(data: IObj) {
+        this.gl.finish()
+        const buffer = this.gl.createBuffer()!
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buffer)
+        const vert = data.vertices
+        this.gl.bufferData(this.gl.ARRAY_BUFFER, vert, this.gl.STATIC_DRAW)
+
+        this.vertexCount = vert.length
+        const colorBuffer = this.gl.createBuffer()
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, colorBuffer)
+        let color = [1.0]
+        for (let i = 0; i < vert.length; i++) {
+            switch (i % 3) {
+                case 0: color.push(1.0,0.0,0.0); break;
+                case 1: color.push(0.0,1.0,0.0); break;
+                case 2: color.push(0.0,0.0,1.0); break;
+            }
+            color.push(1.0)
+        }
+        this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(color), this.gl.STATIC_DRAW)
+        const indexBuffer = this.gl.createBuffer()
+        this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, indexBuffer)
+        this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER, data.indices!, this.gl.STATIC_DRAW)
+        return {
+            position: buffer!,
+            color: colorBuffer!,
+            index: indexBuffer
+        }
+    }
+
+    setProjection(fov: number, near: number, far: number) {
+        mat4.perspective(
+            this.projection,
+            fov * Math.PI / 180,
+            this.gl.canvas.clientWidth / this.gl.canvas.clientHeight,
+            near,
+            far
+        )
     }
 
     private draw(deltaTime: number) {
@@ -92,13 +152,13 @@ export class RenderingEngine {
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.buffers.color)
         this.gl.vertexAttribPointer(this.program.vertexColor, numComponents, type, false, 0, 0)
         this.gl.enableVertexAttribArray(this.program.vertexColor)
+        this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.buffers.index)
         this.gl.useProgram(this.program.program)
         this.gl.uniformMatrix4fv(this.program.projection, false, this.projection)
         this.gl.uniformMatrix4fv(this.program.model, false, this.modelView)
 
-        const vertexCount = 3
-        this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, vertexCount)
 
+        this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, this.vertexCount)
     }
 
     private initBuffers(): Buffers {
@@ -121,7 +181,8 @@ export class RenderingEngine {
 
         return {
             position: buffer!,
-            color: colorBuffer!
+            color: colorBuffer!,
+            index: null
         }
     }
 

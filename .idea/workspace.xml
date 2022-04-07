@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d641fa09-28f1-494f-942f-32553803c01c" name="Changes" comment="implemented loading model files">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/graphics/rendering.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/graphics/rendering.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/pages/Home.tsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="26oJNEI9qcLCEpLyyZDkxl6nD6c" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.web.browsers" />
+    <property name="ts.external.directory.path" value="D:\Dev\Projects\csc\csc_490_project\node_modules\typescript\lib" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="start" type="js.build_tools.npm" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="start" />
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d641fa09-28f1-494f-942f-32553803c01c" name="Changes" comment="" />
+      <created>1648083966348</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1648083966348</updated>
+      <workItem from="1648083969404" duration="3135000" />
+      <workItem from="1648318780265" duration="11000" />
+      <workItem from="1648399844879" duration="7316000" />
+      <workItem from="1648648830369" duration="7333000" />
+      <workItem from="1648680188688" duration="596000" />
+      <workItem from="1648691682627" duration="1866000" />
+      <workItem from="1648821491407" duration="674000" />
+      <workItem from="1649032566192" duration="109000" />
+      <workItem from="1649032830771" duration="14000" />
+      <workItem from="1649032917565" duration="1878000" />
+      <workItem from="1649078712199" duration="597000" />
+      <workItem from="1649273578550" duration="3091000" />
+    </task>
+    <task id="LOCAL-00001" summary="added fps counter">
+      <created>1648086063284</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1648086063284</updated>
+    </task>
+    <task id="LOCAL-00002" summary="added settings menu">
+      <created>1648407455175</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1648407455175</updated>
+    </task>
+    <task id="LOCAL-00003" summary="blarg">
+      <created>1648649252355</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1648649252355</updated>
+    </task>
+    <task id="LOCAL-00004" summary="implemented loading model files">
+      <created>1648654383695</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1648654383695</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added fps counter" />
+    <MESSAGE value="added settings menu" />
+    <MESSAGE value="blarg" />
+    <MESSAGE value="implemented loading model files" />
+    <option name="LAST_COMMIT_MESSAGE" value="implemented loading model files" />
+  </component>
+</project>
