@@ -47,11 +47,11 @@ export function Login() {
                     <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
 
                     <div className="form-floating">
-                        <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com"
+                        <input type="text" className="form-control" id="floatingInput" placeholder="username"
                                onChange={event=>{
                                    setUsername(event.target.value);
                                }}/>
-                            <label htmlFor="floatingInput">Email address</label>
+                            <label htmlFor="floatingInput">Username</label>
                     </div>
                     <div className="form-floating">
                         <input type="password" className="form-control" id="floatingPassword" placeholder="Password"
