@@ -35,24 +35,24 @@ func Login(context *gin.Context) {
 		context.AbortWithStatus(http.StatusBadRequest)
 	}
 	parts := strings.Split(pass, "$")
-	salt, err := base64.RawStdEncoding.DecodeString(parts[5])
+	salt, err := base64.RawStdEncoding.DecodeString(parts[6])
 	if err != nil {
 		context.AbortWithStatus(http.StatusInternalServerError)
 	}
 
-	hash := parts[6]
+	hash := parts[7]
 
-	mem, err := getNum(parts[1])
+	mem, err := getNum(parts[2])
 	if err != nil {
 		context.AbortWithStatus(http.StatusInternalServerError)
 	}
 
-	iter, err := getNum(parts[2])
+	iter, err := getNum(parts[3])
 	if err != nil {
 		context.AbortWithStatus(http.StatusInternalServerError)
 	}
 
-	par, err := getNum(parts[3])
+	par, err := getNum(parts[4])
 	if err != nil {
 		context.AbortWithStatus(http.StatusInternalServerError)
 	}
