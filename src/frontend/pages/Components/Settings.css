@@ -1,0 +1,10 @@
+.modal-content{
+    transform: translateY(50%);
+    background-color: rgb(26, 28, 30);
+}
+.modal{
+    color:white;
+}
+.modal-header,.modal-body,.modal-footer{
+    background-color: rgb(26, 28, 30);
+}

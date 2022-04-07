@@ -1,0 +1,38 @@
+.background{
+    height: 100vmax;
+    width: 100vmax;
+}
+
+.header{
+    z-index: 4;
+    width: 100%;
+    position: fixed;
+    text-align: center;
+    user-select: none;
+    height: 100px;
+    font: 24pt bold;
+}
+
+.header-title{
+    text-align: center;
+    position: fixed;
+    transform: translateX(100px) translateY(30px);
+}
+.header-signin{
+    transform: translateY(40px);
+    user-select: none;
+    text-align: right;
+    padding-right: 2%;
+}
+.login{
+    padding-right: 2%;
+    font-size: 20px;
+}
+.themeSelect{
+    font-size: 20px;
+}
+
+.headerButton {
+    padding: 10px;
+    font-size: 22px;
+}
