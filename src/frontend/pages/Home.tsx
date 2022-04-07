@@ -5,7 +5,7 @@ import {CodeEditor} from "./Components/CodeEditor";
 import {RenderingEngine} from "../graphics/rendering";
 import {useAppSelector} from "../data/store";
 import Modal from "react-modal";
-import {FileFormats, Unified3dLoader} from 'unified-3d-loader';
+import parseObj from '@hippie/obj'
 
 export function Home() {
     const vertex = useAppSelector((state) => state.shader.vertex)
@@ -37,7 +37,14 @@ export function Home() {
             if (instance)
                 instance.stop = true;
             const settings = getSettings
-            let renderingEngine = new RenderingEngine(settings.fov, settings.zNear, settings.zFar, vertex, fragment, (time: number) => setFps(1 / time))
+            let renderingEngine = new RenderingEngine(
+                settings.fov,
+                settings.zNear,
+                settings.zFar,
+                vertex,
+                fragment,
+                (time: number) => setFps(1 / time)
+            )
             renderingEngine.render(0)
             setError(false)
         } catch (error: any) {
@@ -92,15 +99,22 @@ export function Home() {
                             `}
                            onChange={async (event) => {
                                if (event.target.files) {
-                                   const loader = new Unified3dLoader()
-                                   const buf = await event.target.files[0].arrayBuffer()
-                                   const indexed = await loader.load(buf, FileFormats.OBJ,{
-                                       index: {
-                                           normals: true,
-                                           vertices: true
-                                       }
-                                   })
-                                   RenderingEngine.getInstance().loadModel(indexed[0])
+                                   const txt = await event.target.files[0].text()
+                                   const [model] = parseObj(txt)
+                                   const settings = getSettings
+                                   let instance = RenderingEngine.getInstance()
+                                   if (instance)
+                                       instance.stop = true
+                                   let renderingEngine = new RenderingEngine(
+                                       settings.fov,
+                                       settings.zNear,
+                                       settings.zFar,
+                                       vertex,
+                                       fragment,
+                                       (time: number) => setFps(1 / time),
+                                       model
+                                   )
+                                   renderingEngine.render(0)
                                }
                            }}
                     />

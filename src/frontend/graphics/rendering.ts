@@ -1,5 +1,5 @@
 import {mat4, vec3} from "gl-matrix";
-import {Mesh, VectorListType} from "unified-3d-loader/src/types";
+import {IObj} from "@hippie/obj";
 
 interface ProgramData {
     program: WebGLProgram,
@@ -11,7 +11,8 @@ interface ProgramData {
 
 interface Buffers {
     position: WebGLBuffer,
-    color: WebGLBuffer
+    color: WebGLBuffer,
+    index: WebGLBuffer | null,
 }
 
 export class RenderingEngine {
@@ -22,8 +23,10 @@ export class RenderingEngine {
     private buffers: Buffers
     private program: ProgramData
     private static instance: RenderingEngine
+    private vertexCount = 3
     stop: boolean = false
     private readonly timerCallback: Function | null
+    private model: IObj | null
 
     constructor(
         fov: number,
@@ -31,9 +34,11 @@ export class RenderingEngine {
         far: number,
         vertexShader: string,
         fragmentShader: string,
-        timerCallback: Function | null = null
+        timerCallback: Function | null = null,
+        model: IObj | null = null
     ) {
         this.timerCallback = timerCallback
+        this.model = model
         const gl = document.querySelector<HTMLCanvasElement>("#webgl")?.getContext("webgl");
         this.gl = gl!
         mat4.perspective(
@@ -55,7 +60,10 @@ export class RenderingEngine {
                 projection: this.gl.getUniformLocation(program, "uProjectionMatrix")!,
                 model: this.gl.getUniformLocation(program, "uModelViewMatrix")!
             }
-            this.buffers = this.initBuffers()
+            if (model)
+                this.buffers = this.loadModel(model)
+            else
+                this.buffers = this.initBuffers()
             RenderingEngine.instance = this
         } else {
             throw new Error("WebGL initialization failed")
@@ -81,8 +89,34 @@ export class RenderingEngine {
         return RenderingEngine.instance
     }
 
-    loadModel(file: Mesh<VectorListType, VectorListType>) {
-        //todo
+    private loadModel(data: IObj) {
+        this.gl.finish()
+        const buffer = this.gl.createBuffer()!
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buffer)
+        const vert = data.vertices
+        this.gl.bufferData(this.gl.ARRAY_BUFFER, vert, this.gl.STATIC_DRAW)
+
+        this.vertexCount = vert.length
+        const colorBuffer = this.gl.createBuffer()
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, colorBuffer)
+        let color = [1.0]
+        for (let i = 0; i < vert.length; i++) {
+            switch (i % 3) {
+                case 0: color.push(1.0,0.0,0.0); break;
+                case 1: color.push(0.0,1.0,0.0); break;
+                case 2: color.push(0.0,0.0,1.0); break;
+            }
+            color.push(1.0)
+        }
+        this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(color), this.gl.STATIC_DRAW)
+        const indexBuffer = this.gl.createBuffer()
+        this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, indexBuffer)
+        this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER, data.indices!, this.gl.STATIC_DRAW)
+        return {
+            position: buffer!,
+            color: colorBuffer!,
+            index: indexBuffer
+        }
     }
 
     setProjection(fov: number, near: number, far: number) {
@@ -118,13 +152,13 @@ export class RenderingEngine {
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.buffers.color)
         this.gl.vertexAttribPointer(this.program.vertexColor, numComponents, type, false, 0, 0)
         this.gl.enableVertexAttribArray(this.program.vertexColor)
+        this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.buffers.index)
         this.gl.useProgram(this.program.program)
         this.gl.uniformMatrix4fv(this.program.projection, false, this.projection)
         this.gl.uniformMatrix4fv(this.program.model, false, this.modelView)
 
-        const vertexCount = 3
-        this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, vertexCount)
 
+        this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, this.vertexCount)
     }
 
     private initBuffers(): Buffers {
@@ -147,7 +181,8 @@ export class RenderingEngine {
 
         return {
             position: buffer!,
-            color: colorBuffer!
+            color: colorBuffer!,
+            index: null
         }
     }
 
