@@ -33,23 +33,25 @@ func CheckUserExists(username string) bool {
 	return true
 }
 
-func GetUserPassword(username string) (string, error) {
+func GetUserPassword(username string) (string, int, error) {
 	connection := connectDatabase()
 	defer connection.Close()
 
-	row := connection.QueryRow(context.Background(), "SELECT password FROM users WHERE username=$1;", username)
+	row := connection.QueryRow(context.Background(), "SELECT id, password FROM users WHERE username=$1;", username)
 	var pass string
-	err := row.Scan(&pass)
+	var id int
+	err := row.Scan(&id, &pass)
 	if err != nil {
-		return "", err
+		return "", 0, err
 	}
-	return pass, nil
+	return pass, id, nil
 }
 
-func InsertAccount(username string, password string, email string) error {
+func InsertAccount(username string, password string, email string) (int, error) {
 	connection := connectDatabase()
 	defer connection.Close()
 
-	_, err := connection.Exec(context.Background(), "INSERT INTO users(username, password, email) VALUES($1, $2, $3)", username, password, email)
-	return err
+	id := 0
+	err := connection.QueryRow(context.Background(), "INSERT INTO users(username, password, email) VALUES($1, $2, $3) RETURNING id", username, password, email).Scan(&id)
+	return id, err
 }
