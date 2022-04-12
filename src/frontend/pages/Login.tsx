@@ -27,7 +27,7 @@ export function Login() {
 
     return (
         <ThemeProvider theme={()=>theme}>
-        <body className="text-center" css={theme => ({
+        <div className="text-center" css={theme => ({
             backgroundColor: theme.backgroundColor,
             color: theme.textColor,
             fontFamily: theme.fontFamily
@@ -84,7 +84,7 @@ export function Login() {
             </form>
         </main>
 
-        </body>
+        </div>
         </ThemeProvider>)
 
 //         <div css={{paddingTop: '10vh'}}>

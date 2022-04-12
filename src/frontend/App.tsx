@@ -20,8 +20,6 @@ function App() {
 
     return (
         <ThemeProvider theme={() => theme}>
-            <BrowserRouter basename={'CSC_490_project'}>
-
             <div
                 className={'background'}
                 css={theme => ({
@@ -78,6 +76,7 @@ function App() {
                     </div>
                 </header>
 
+
                     <Routes>
                         <Route path='/' element={<Home/>}/>
                         <Route path='login' element={<Login/>}/>
@@ -85,7 +84,6 @@ function App() {
                         <Route path='profile' element={<Profile/>}/>
                     </Routes>
             </div>
-            </BrowserRouter>
         </ThemeProvider>
     );
 }

@@ -6,10 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="d641fa09-28f1-494f-942f-32553803c01c" name="Changes" comment="implemented loading model files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/graphics/rendering.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/graphics/rendering.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/pages/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/pages/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/pages/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/pages/Styles/Login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/pages/Styles/Login.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +25,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="John_Iacoucci" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -44,7 +50,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.web.browsers" />
-    <property name="ts.external.directory.path" value="D:\Dev\Projects\csc\csc_490_project\node_modules\typescript\lib" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">

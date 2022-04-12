@@ -9,12 +9,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 import {store} from "./data/store";
+import {BrowserRouter} from "react-router-dom";
 
 ReactDOM.render(
     <React.StrictMode>
+        <BrowserRouter basename={'CSC_490_project'}>
         <Provider store={store}>
             <App/>
         </Provider>
+        </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')
 );
