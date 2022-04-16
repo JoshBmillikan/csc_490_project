@@ -1,13 +1,6 @@
-body {
-    height: 100%;
-}
-
-body {
-    display: flex;
-    align-items: center;
-    padding-bottom: 40%;
-}
 .text-center{
+    padding-top: 20vh;
+    align-items: center;
     color: white;
 }
 .form-floating{
@@ -15,7 +8,6 @@ body {
 }
 
 .form-signin {
-    width: 100%;
     max-width: 330px;
     padding: 15px;
     margin: auto;
