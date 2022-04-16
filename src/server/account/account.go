@@ -34,48 +34,52 @@ func Login(context *gin.Context) {
 	if err != nil {
 		context.AbortWithStatus(http.StatusBadRequest)
 	}
-	parts := strings.Split(pass, "$")
-	salt, err := base64.RawStdEncoding.DecodeString(parts[6])
+	//parts := strings.Split(pass, "$")
+	//salt, err := base64.RawStdEncoding.DecodeString(parts[6])
+	//if err != nil {
+	//	context.AbortWithStatus(http.StatusInternalServerError)
+	//}
+	//
+	//hash := parts[7]
+	//
+	//mem, err := getNum(parts[2])
+	//if err != nil {
+	//	context.AbortWithStatus(http.StatusInternalServerError)
+	//}
+	//
+	//iter, err := getNum(parts[3])
+	//if err != nil {
+	//	context.AbortWithStatus(http.StatusInternalServerError)
+	//}
+	//
+	//par, err := getNum(parts[4])
+	//if err != nil {
+	//	context.AbortWithStatus(http.StatusInternalServerError)
+	//}
+	//
+	//params := &hashParams{
+	//	memory:      uint32(mem),
+	//	iterations:  uint32(iter),
+	//	parallelism: uint8(par),
+	//	saltLength:  uint32(len(salt)),
+	//	keyLength:   uint32(len(hash)),
+	//}
+	//
+	//newHash := argon2.IDKey(
+	//	[]byte(request.Password),
+	//	salt,
+	//	params.iterations,
+	//	params.memory,
+	//	params.parallelism,
+	//	params.keyLength)
+	//
+	//encoded := base64.RawStdEncoding.EncodeToString(newHash)
+	hash, err := hashPassword(request.Password)
 	if err != nil {
 		context.AbortWithStatus(http.StatusInternalServerError)
 	}
 
-	hash := parts[7]
-
-	mem, err := getNum(parts[2])
-	if err != nil {
-		context.AbortWithStatus(http.StatusInternalServerError)
-	}
-
-	iter, err := getNum(parts[3])
-	if err != nil {
-		context.AbortWithStatus(http.StatusInternalServerError)
-	}
-
-	par, err := getNum(parts[4])
-	if err != nil {
-		context.AbortWithStatus(http.StatusInternalServerError)
-	}
-
-	params := &hashParams{
-		memory:      uint32(mem),
-		iterations:  uint32(iter),
-		parallelism: uint8(par),
-		saltLength:  uint32(len(salt)),
-		keyLength:   uint32(len(hash)),
-	}
-
-	newHash := argon2.IDKey(
-		[]byte(request.Password),
-		salt,
-		params.iterations,
-		params.memory,
-		params.parallelism,
-		params.keyLength)
-
-	encoded := base64.RawStdEncoding.EncodeToString(newHash)
-
-	if encoded == hash {
+	if hash == pass {
 		sessions.Default(context).Set("USER_ID", id)
 		context.String(http.StatusOK, "login successful")
 	} else {
