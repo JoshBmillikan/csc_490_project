@@ -34,47 +34,10 @@ func Login(context *gin.Context) {
 	if err != nil {
 		context.AbortWithStatus(http.StatusBadRequest)
 	}
-	//parts := strings.Split(pass, "$")
-	//salt, err := base64.RawStdEncoding.DecodeString(parts[6])
-	//if err != nil {
-	//	context.AbortWithStatus(http.StatusInternalServerError)
-	//}
-	//
-	//hash := parts[7]
-	//
-	//mem, err := getNum(parts[2])
-	//if err != nil {
-	//	context.AbortWithStatus(http.StatusInternalServerError)
-	//}
-	//
-	//iter, err := getNum(parts[3])
-	//if err != nil {
-	//	context.AbortWithStatus(http.StatusInternalServerError)
-	//}
-	//
-	//par, err := getNum(parts[4])
-	//if err != nil {
-	//	context.AbortWithStatus(http.StatusInternalServerError)
-	//}
-	//
-	//params := &hashParams{
-	//	memory:      uint32(mem),
-	//	iterations:  uint32(iter),
-	//	parallelism: uint8(par),
-	//	saltLength:  uint32(len(salt)),
-	//	keyLength:   uint32(len(hash)),
-	//}
-	//
-	//newHash := argon2.IDKey(
-	//	[]byte(request.Password),
-	//	salt,
-	//	params.iterations,
-	//	params.memory,
-	//	params.parallelism,
-	//	params.keyLength)
-	//
-	//encoded := base64.RawStdEncoding.EncodeToString(newHash)
-	hash, err := hashPassword(request.Password)
+
+	parts := strings.Split(pass, "$")
+	salt, err := base64.RawStdEncoding.DecodeString(parts[7])
+	hash := hashPassword(request.Password, salt)
 	if err != nil {
 		context.AbortWithStatus(http.StatusInternalServerError)
 	}
@@ -105,11 +68,12 @@ func CreateAccount(context *gin.Context) {
 	if database.CheckUserExists(request.Username) {
 		context.AbortWithStatus(http.StatusConflict)
 	}
-
-	hash, err := hashPassword(request.Password)
+	salt, err := genSalt(16)
 	if err != nil {
 		context.AbortWithStatus(http.StatusInternalServerError)
 	}
+
+	hash := hashPassword(request.Password, salt)
 	id, err := database.InsertAccount(request.Username, hash, request.Email)
 	if err != nil {
 		context.AbortWithStatus(http.StatusBadGateway)
@@ -126,18 +90,13 @@ type hashParams struct {
 	keyLength   uint32
 }
 
-func hashPassword(password string) (string, error) {
+func hashPassword(password string, salt []byte) string {
 	params := &hashParams{
 		memory:      64 * 1024,
 		iterations:  3,
 		parallelism: 2,
-		saltLength:  16,
+		saltLength:  uint32(len(salt)),
 		keyLength:   32,
-	}
-
-	salt, err := genSalt(params.saltLength)
-	if err != nil {
-		return "", err
 	}
 
 	hash := argon2.IDKey(
@@ -150,7 +109,7 @@ func hashPassword(password string) (string, error) {
 
 	result := encode(hash, salt, params)
 
-	return result, nil
+	return result
 }
 
 func encode(rawHash []byte, rawSalt []byte, hashingContext *hashParams) string {
