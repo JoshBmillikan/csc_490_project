@@ -10,10 +10,9 @@ Style sheet for the code editor with syntax highlighting
     width: 40%;
     height: 70%;
     position: absolute;
-    top: 15%;
+    top: 17%;
     left: 0;
     overflow: auto;
-    transform: translateY(50px);
 }
 
 #editing, #highlighting, #highlighting * {
@@ -37,9 +36,9 @@ Style sheet for the code editor with syntax highlighting
 }
 
 .contain{
-    padding-top: 120px;
+    padding-top: 12vh;
     padding-left: 10px;
 }
 .editorContainer{
-    padding-top: 10%;
+    padding-top: 12%;
 }

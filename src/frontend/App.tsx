@@ -3,18 +3,14 @@ import React from 'react';
 import {css, ThemeProvider} from "@emotion/react";
 import {useAppDispatch, useAppSelector} from "./data/store";
 import {Home} from "./pages/Home";
-import {BrowserRouter, Link} from "react-router-dom";
 import {Route, Routes} from "react-router";
-import {Login} from "./pages/Login";
-import {Register} from "./pages/Register"
 import {themes} from "./data/theme";
-import {Profile} from "./pages/Account";
 import './App.css'
 
 function App() {
     // Theme import selector
     const theme = useAppSelector((state) => state.ui.theme)
-
+    // theme constant
     const dispatch = useAppDispatch()
     let c = 0
 
@@ -35,24 +31,6 @@ function App() {
                 >
                     <h1 className={'header-title'}>Shader Viewer</h1>
                     <div className={'header-signin'}>
-                        <Link className={'headerButton'}
-                              css={theme=>(css`
-                              color: ${theme.textColor};
-                              :hover{color: ${theme.secondaryTextColor}}`)}
-                              to={'../'}>
-                            <button>Home</button>
-                        </Link>
-                        <Link className={'headerButton'}
-                              css={theme=>(css`
-                              color: ${theme.textColor};
-                              :hover{color: ${theme.secondaryTextColor}}`)}
-                              to={'login'}>
-                            <button>Sign in</button>
-                            {/* <span className="material-icons">
-                        login
-                    </span>
-                            <span>Sign in</span> */}
-                        </Link>
                         <select className={'themeSelect'}
                             css={theme=>(css`
                                 background-color: ${theme.secondaryColor};
@@ -76,12 +54,8 @@ function App() {
                     </div>
                 </header>
 
-
                     <Routes>
                         <Route path='/' element={<Home/>}/>
-                        <Route path='login' element={<Login/>}/>
-                        <Route path='register' element={<Register/>}/>
-                        <Route path='profile' element={<Profile/>}/>
                     </Routes>
             </div>
         </ThemeProvider>
