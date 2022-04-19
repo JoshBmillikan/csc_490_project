@@ -32,7 +32,7 @@ export function Home() {
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
             backgroundColor: theme.backgroundColor,
-            color: theme.textColor,
+            color: theme.thirdTextColor,
         },
     };
     // Mount rendering engine and reload everytime the vertex or fragment shader is updated
@@ -131,7 +131,7 @@ export function Home() {
             />
                 <div>
                 <label css={ theme =>css`
-                  color: ${theme.textColor}
+                  color: ${theme.thirdTextColor}
                 `}>
                     FPS: {getFps.toFixed(2)}
                 </label>
