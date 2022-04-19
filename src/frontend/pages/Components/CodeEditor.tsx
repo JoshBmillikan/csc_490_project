@@ -5,6 +5,7 @@ import {ShaderState} from "../../data/reducers";
 // @ts-ignore
 import Prism from "prismjs";
 import "./style.css"
+import {css} from "@emotion/react";
 
 export function CodeEditor(this: any) {
     // shader selector states
@@ -54,12 +55,12 @@ export function CodeEditor(this: any) {
             </pre>
             </div>
             <div className={'contain'}>
-                <select className={'selector'} css={theme=>({
-                    backgroundColor: theme.backgroundColor,
-                    color: theme.textColor,
-                    borderColor: theme.borderColor,
-                    borderStyle: 'inset'
-                })}
+                <select className={'selector'} css={theme=>(css`
+                                background-color: transparent;
+                                color: ${theme.thirdTextColor};
+                                border-color: transparent;
+                                :hover{color: gray;}
+                            `)}
                         onChange={(event)=>{
                             const name = event.target.value;
                             if (name){

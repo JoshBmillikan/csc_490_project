@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d641fa09-28f1-494f-942f-32553803c01c" name="Changes" comment="Fixed the white space at the bottom of the page and corrected the height of the page to 100 vh">
+    <list default="true" id="d641fa09-28f1-494f-942f-32553803c01c" name="Changes" comment="Fixed home page styling, removed the home and signin button, fixed modal styling, added comments, refactored some css into its own files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/data/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/data/theme.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/frontend/pages/Components/CodeEditor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/pages/Components/CodeEditor.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/frontend/pages/Components/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/pages/Components/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/frontend/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/pages/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/pages/Styles/Home.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/pages/Styles/Home.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +81,7 @@
       <workItem from="1649032917565" duration="1878000" />
       <workItem from="1649078712199" duration="597000" />
       <workItem from="1649273578550" duration="3091000" />
-      <workItem from="1650312436705" duration="7142000" />
+      <workItem from="1650312436705" duration="9698000" />
     </task>
     <task id="LOCAL-00001" summary="added fps counter">
       <created>1648086063284</created>
@@ -119,7 +118,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649784276852</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Fixed home page styling, removed the home and signin button, fixed modal styling, added comments, refactored some css into its own files">
+      <created>1650385133670</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1650385133670</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -142,6 +148,7 @@
     <MESSAGE value="blarg" />
     <MESSAGE value="implemented loading model files" />
     <MESSAGE value="Fixed the white space at the bottom of the page and corrected the height of the page to 100 vh" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed the white space at the bottom of the page and corrected the height of the page to 100 vh" />
+    <MESSAGE value="Fixed home page styling, removed the home and signin button, fixed modal styling, added comments, refactored some css into its own files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed home page styling, removed the home and signin button, fixed modal styling, added comments, refactored some css into its own files" />
   </component>
 </project>
