@@ -4,23 +4,29 @@
 
 .renderWindow{
     float: right;
-    padding-left: 5%;
     padding-right: 5%;
-    transform: translateY(20%);
-}
-.btns{
-    float: right;
-    color: darkgray;
-}
-.btns-settings:hover, .btns-upload:hover{
-    color: #797979;
+    padding-top: 10%;
 }
 
-.webgl{
-    border-width: 2px;
-    border-style: ridge;
+.renderBtns{
+    float: right;
+    color: #8f8f8f
 }
-.fps{
+
+.settingsBtn:hover, .fileBtn:hover{
+    color: #5e5e5e;
+}
+
+#fps{
     background-color: transparent;
     width: 20%;
 }
+#modalBtns{
+    float: right;
+    padding-top: 10px;
+    align-content: space-evenly;
+}
+#cancel{
+    margin-right: 10px;
+}
+
