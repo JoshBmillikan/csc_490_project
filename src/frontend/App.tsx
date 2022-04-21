@@ -5,6 +5,10 @@ import {useAppDispatch, useAppSelector} from "./data/store";
 import {Home} from "./pages/Home";
 import {Route, Routes} from "react-router";
 import {themes} from "./data/theme";
+import {Profile} from "./pages/Account";
+import {Login} from "./pages/Login";
+import {Register} from "./pages/Register"
+import {BrowserRouter, Link} from "react-router-dom";
 import './App.css'
 
 function App() {
@@ -31,6 +35,24 @@ function App() {
                 >
                     <h1 className={'header-title'}>Shader Viewer</h1>
                     <div className={'header-signin'}>
+                        <Link className={'headerButton'}
+                              css={theme=>(css`
+                              color: ${theme.textColor};
+                              :hover{color: ${theme.secondaryTextColor}}`)}
+                              to={'../'}>
+                            <button id={'home'} className="btn btn-sm btn-primary">Home</button>
+                        </Link>
+                        <Link className={'headerButton'}
+                              css={theme=>(css`
+                              color: ${theme.textColor};
+                              :hover{color: ${theme.secondaryTextColor}}`)}
+                              to={'login'}>
+                            <button id={'signin'} className="btn btn-sm btn-primary">Sign in</button>
+                            {/* <span className="material-icons">
+                        login
+                    </span>
+                            <span>Sign in</span> */}
+                        </Link>
                         <select className={'themeSelect'}
                             css={theme=>(css`
                                 background-color: ${theme.secondaryColor};
@@ -56,6 +78,9 @@ function App() {
 
                     <Routes>
                         <Route path='/' element={<Home/>}/>
+                        <Route path='login' element={<Login/>}/>
+                        <Route path='register' element={<Register/>}/>
+                        <Route path='profile' element={<Profile/>}/>
                     </Routes>
             </div>
         </ThemeProvider>
