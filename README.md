@@ -2,7 +2,7 @@
 >This is a shader editor that gives live rendering for edits made by the user.
 >Live link [_here_](https://csc490.azurewebsites.net/CSC_490_project/)
 
-##General Info
+## General Info
 * Created with Typescript using React for a frontend and Go as a backend
 * The app allows users to edit shaders in real time
 * Hosted on Azure with Github actions for continous deployment

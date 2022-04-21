@@ -6,19 +6,23 @@ import {RenderingEngine} from "../graphics/rendering";
 import {useAppSelector} from "../data/store";
 import Modal from "react-modal";
 import parseObj from '@hippie/obj'
+import './Styles/Home.css'
 
 export function Home() {
+    // states
     const vertex = useAppSelector((state) => state.shader.vertex)
     const fragment = useAppSelector((state) => state.shader.fragment)
     const [getError, setError] = useState(false)
     const [getFps, setFps] = useState(0.0)
     const [getShowSettings, setShowSettings] = useState(false)
+    // FOV state for changing in settings
     const [getSettings, setSettings] = useState<Settings>({
         scaleX: 1, scaleY: 1, scaleZ: 1,
         fov: 45,
         zNear: 0.1,
         zFar: 100
     })
+    // modal theme
     const theme = useTheme()
     const modalStyle = {
         content: {
@@ -29,9 +33,10 @@ export function Home() {
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
             backgroundColor: theme.backgroundColor,
-            color: theme.textColor,
+            color: theme.thirdTextColor,
         },
     };
+    // Mount rendering engine and reload everytime the vertex or fragment shader is updated
     useEffect(() => {
         try {
             let instance = RenderingEngine.getInstance()
@@ -54,6 +59,7 @@ export function Home() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [vertex, fragment])
 
+    // Mount the Fov settings and update redering engine everytime there is a FOV change
     useEffect(() => {
         const {fov, zNear, zFar, scaleX,scaleY,scaleZ} = getSettings
         const instance = RenderingEngine.getInstance()
@@ -63,28 +69,20 @@ export function Home() {
 
     return (
         <div>
-            <span css={css`float: left`}>
+            <span className={'codeEditor'}>
             <CodeEditor/>
         </span>
-            <span css={css`
-              float: right;
-              padding-right: 5%;
-              padding-top: 10%;
-            `}>
-                <div css={theme => css`
-                  float: right;
-                  background-color: ${theme.backgroundColor};
-                  color: silver;
-                `}>
+            <span className={'renderWindow'}>
+                <div className={'renderBtns'}>
                     <div>
-                <button css={{backgroundColor: 'inherit', color: 'inherit', border: 'hidden'}}
+                <button className={'settingsBtn'} css={{backgroundColor: 'inherit', color: 'inherit', border: 'hidden'}}
                         onClick={() => setShowSettings(!getShowSettings)}>
                     <span className="material-icons">
                         settings
                     </span>
                 </button>
                         </div><div>
-                <button css={{backgroundColor: 'inherit', color: 'inherit', border: 'hidden'}}
+                <button className={'fileBtn'} css={{backgroundColor: 'inherit', color: 'inherit', border: 'hidden'}}
                         onClick={() => {
                             const file = document.getElementById("file_upload")
                             file?.click()
@@ -135,19 +133,17 @@ export function Home() {
                 height={"500"}
             />
                 <div>
-                <label css={{
-                    backgroundColor: "silver",
-                    textColor: "black",
-                    width: '20%'
-                }}
-                >FPS: {getFps.toFixed(2)}</label>
+                <label css={ theme =>css`
+                  color: ${theme.thirdTextColor}
+                `}>
+                    FPS: {getFps.toFixed(2)}
+                </label>
             </div>
         </span>
             <Modal
                 isOpen={getShowSettings}
                 onRequestClose={() => setShowSettings(false)}
-                style={modalStyle}
-            >
+                style={modalStyle}>
                 <form
                     id={'settings'}
                     onSubmit={(it) => {
