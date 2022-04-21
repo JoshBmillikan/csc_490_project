@@ -14,9 +14,10 @@ export function Home() {
     const [getFps, setFps] = useState(0.0)
     const [getShowSettings, setShowSettings] = useState(false)
     const [getSettings, setSettings] = useState<Settings>({
+        scaleX: 1, scaleY: 1, scaleZ: 1,
         fov: 45,
         zNear: 0.1,
-        zFar: 100,
+        zFar: 100
     })
     const theme = useTheme()
     const modalStyle = {
@@ -54,8 +55,10 @@ export function Home() {
     }, [vertex, fragment])
 
     useEffect(() => {
-        const {fov, zNear, zFar} = getSettings
-        RenderingEngine.getInstance().setProjection(fov, zNear, zFar)
+        const {fov, zNear, zFar, scaleX,scaleY,scaleZ} = getSettings
+        const instance = RenderingEngine.getInstance()
+        instance.setProjection(fov, zNear, zFar)
+        instance.setScale(scaleX,scaleY,scaleZ)
     }, [getSettings])
 
     return (
@@ -100,7 +103,7 @@ export function Home() {
                            onChange={async (event) => {
                                if (event.target.files) {
                                    const txt = await event.target.files[0].text()
-                                   const [model] = parseObj(txt)
+                                   const model = parseObj(txt)[0]
                                    const settings = getSettings
                                    let instance = RenderingEngine.getInstance()
                                    if (instance)
@@ -152,13 +155,18 @@ export function Home() {
                         setSettings({
                             ...getSettings,
                             fov: parseFloat((document.getElementById('fov') as HTMLInputElement).value),
+                            scaleX: parseFloat((document.getElementById('x') as HTMLInputElement).value),
+                            scaleY: parseFloat((document.getElementById('y') as HTMLInputElement).value),
+                            scaleZ: parseFloat((document.getElementById('z') as HTMLInputElement).value)
                         })
                         setShowSettings(false)
                     }}
                 >
-                    <label>FOV:</label><input name={'fov'} id={'fov'} type={"number"}
+                    <label>FOV:</label><input name={'fov'} id={'fov'} type={"number"} step={0.01}
                                               defaultValue={getSettings.fov}/><br/>
-
+                    <label>Scale X</label><input name={'x'} id={'x'} type={'number'} step={0.001} defaultValue={getSettings.scaleX}/><br/>
+                    <label>Scale Y</label><input name={'y'} id={'y'} type={'number'} step={0.001} defaultValue={getSettings.scaleY}/><br/>
+                    <label>Scale Z</label><input name={'z'} id={'z'} type={'number'} step={0.001} defaultValue={getSettings.scaleZ}/><br/>
                     <button onClick={() => setShowSettings(false)}>
                         Cancel
                     </button>
@@ -173,4 +181,7 @@ interface Settings {
     fov: number,
     zNear: number,
     zFar: number,
+    scaleX: number,
+    scaleY: number,
+    scaleZ: number,
 }

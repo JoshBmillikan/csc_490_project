@@ -119,6 +119,10 @@ export class RenderingEngine {
         }
     }
 
+    setScale(x: number, y: number, z: number) {
+        mat4.scale(this.modelView, this.modelView, [x,y,z])
+    }
+
     setProjection(fov: number, near: number, far: number) {
         mat4.perspective(
             this.projection,
@@ -133,6 +137,7 @@ export class RenderingEngine {
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0)
         this.gl.clearDepth(1.0)
         this.gl.enable(this.gl.DEPTH_TEST)
+        this.gl.enable(this.gl.CULL_FACE)
         this.gl.depthFunc(this.gl.LEQUAL)
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT)
 
@@ -158,7 +163,10 @@ export class RenderingEngine {
         this.gl.uniformMatrix4fv(this.program.model, false, this.modelView)
 
 
-        this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, this.vertexCount)
+        if (this.model)
+            this.gl.drawElements(this.gl.TRIANGLES, this.model!.indices!.length, this.gl.UNSIGNED_SHORT, 0);
+        else
+            this.gl.drawArrays(this.gl.TRIANGLES, 0, this.vertexCount)
     }
 
     private initBuffers(): Buffers {
