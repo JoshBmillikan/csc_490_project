@@ -44,7 +44,8 @@ export function Login() {
                     }
                 })
             }}>
-                    <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+                    <h1 className="h3 mb-3 fw-normal" css={theme=>(css`
+                              color: ${theme.thirdTextColor};`)}>Please sign in</h1>
 
                     <div className="form-floating">
                         <input type="text" className="form-control" id="floatingInput" placeholder="username"
@@ -62,8 +63,9 @@ export function Login() {
                     </div>
 
                     <div className="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" value="remember-me"/> Remember me
+                        <label css={theme=>(css`
+                              color: ${theme.thirdTextColor};`)}>
+                            <input type="checkbox" value="remember-me" /> Remember me
                         </label>
                     </div>
                 {getLoginState === LoginState.verifying ? <div>
@@ -75,10 +77,9 @@ export function Login() {
                         <Link to={'../register'}
                               className={'register'}
                               css={theme=>(css`
-                              color: ${theme.textColor};
-                              :hover{color: ${theme.secondaryTextColor}}`)}
-                              >
-                            <button>Register</button>
+                              color: ${theme.thirdTextColor};
+                              :hover{color: grey}`)}
+                              >Register
                         </Link>
                     </p>
             </form>
@@ -86,113 +87,6 @@ export function Login() {
 
         </div>
         </ThemeProvider>)
-
-//         <div css={{paddingTop: '10vh'}}>
-//             <div css={theme => ({
-//                 background: theme.foregroundColor,
-//                 paddingTop: "3vh",
-//                 width: '25%',
-//                 height: '60vh',
-//                 display: 'block',
-//                 marginLeft: 'auto',
-//                 marginRight: 'auto',
-//                 alignContent: 'center',
-//                 borderColor: getLoginState === LoginState.failed ? 'darkred' : theme.borderColor,
-//                 borderStyle: 'solid',
-//                 borderWidth: '1px',
-//                 fontSize: '14pt',
-//                 borderRadius: "2%"
-//             })}>
-//                 <header
-//                     css={theme => ({
-//                         color: theme.textColor,
-//                         textAlign: 'center',
-//                         fontSize: '20pt',
-//                         fontFamily: theme.fontFamily,
-//                         fontWeight: 'bold',
-//                         userSelect: 'none',
-//                         borderBottomStyle: 'solid',
-//                         borderBottomColor: theme.borderColor,
-//                         paddingBottom: '2vh',
-//                     })}
-//                 >
-//                     Sign In
-//                 </header>
-//                 {getLoginState === LoginState.failed &&
-//                     <div css={{color: 'red', textAlign: "center", userSelect: 'none'}}
-//                     >Invalid username or password</div>}
-//                 <form css={theme => ({
-//                     color: theme.textColor,
-//                     paddingTop: '5vh',
-//                     fontFamily: theme.fontFamily
-//                 })} onSubmit={(event) => {
-//                     setLoginState(LoginState.verifying)
-//                     makeLoginRequest(event, getUsername, getPassword).then((it) => {
-//                         if (it) {
-//                             setLoginState(LoginState.success)
-//                         } else {
-//                             setLoginState(LoginState.failed)
-//                         }
-//                     })
-//                     return false
-//                 }}>
-//                     <label css={{
-//                         display: 'block',
-//                         margin: 'auto',
-//                         paddingBottom: '5vh',
-//                         textAlign: 'center',
-//                         userSelect: 'none',
-//                     }}>
-//                         Username<br/>
-//                         <input type='text' name='username' css={inputFormStyle}
-//                                onChange={(event) => setUsername(event.target.value)}
-//                                value={getUsername}
-//                         />
-//                     </label>
-//                     <label css={{
-//                         display: 'block',
-//                         margin: 'auto',
-//                         textAlign: 'center',
-//                         userSelect: 'none',
-//                     }}>
-//                         Password<br/>
-//                         <input type='password' name='password' css={inputFormStyle}
-//                                onChange={(event) => setPassword(event.target.value)}
-//                                value={getPassword}
-//                         />
-//                     </label>
-//                     <div css={{
-//                         paddingTop: '10vh',
-//                         textAlign: 'center',
-//                         userSelect: 'none',
-//                     }}>{getLoginState === LoginState.verifying ? <div>
-//                             <PulseLoader color={
-//                                 "lightblue"
-//                             }/>
-//                         </div> :
-//                         <input className={'btn'} type='submit' value='Sign In' css={theme => ({
-//                             width: '55%',
-//                             height: '4vh',
-//                             fontFamily: theme.fontFamily,
-//                             fontWeight: 'bold',
-//                             fontSize: '16pt',
-//                             color: theme.textColor,
-//                             backgroundColor: theme.elementColor,
-//
-//                         })}/>}
-//                     </div>
-//                     <div css={{
-//                         paddingTop: '3vh',
-//                         textAlign: 'center',
-//                         fontSize: '12pt',
-//                     }}>
-//                         <p>Don't have an account? <Link to={'../register'}>Create One</Link> </p>
-//                     </div>
-//                 </form>
-//             </div>
-//         </div>
-//     )
-// }
 
 async function makeLoginRequest(event: FormEvent<HTMLFormElement>, username: string, password: string): Promise<boolean> {
     event.preventDefault()
