@@ -30,9 +30,23 @@
 }
 .themeSelect{
     font-size: 20px;
+    margin-left: 10px;
 }
 
 .headerButton {
-    padding: 10px;
     font-size: 22px;
+}
+#signin, #home{
+    background-color: transparent;
+    border: transparent;
+    font-size: 20px;
+}
+
+#signin:hover, #home:hover{
+    color: black;
+}
+
+#signin:focus,#signin:active, #home:focus, #home:active {
+    outline: none !important;
+    box-shadow: none;
 }
