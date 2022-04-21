@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d641fa09-28f1-494f-942f-32553803c01c" name="Changes" comment="implemented model file loading">
+    <list default="true" id="d641fa09-28f1-494f-942f-32553803c01c" name="Changes" comment="got webgl to load the model, but it dosent render correctly">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/graphics/rendering.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/graphics/rendering.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/pages/Home.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,17 +35,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "D:\\Dev\\Projects\\csc\\csc_490_project\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\Dev\\Projects\\csc\\csc_490_project\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="start" type="js.build_tools.npm" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
@@ -77,7 +75,7 @@
       <workItem from="1649032917565" duration="1878000" />
       <workItem from="1649078712199" duration="597000" />
       <workItem from="1649273578550" duration="3091000" />
-      <workItem from="1650493984077" duration="3805000" />
+      <workItem from="1650493984077" duration="5382000" />
     </task>
     <task id="LOCAL-00001" summary="added fps counter">
       <created>1648086063284</created>
@@ -107,7 +105,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648654383695</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="got webgl to load the model, but it dosent render correctly">
+      <created>1650500690979</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1650500690979</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -129,6 +134,7 @@
     <MESSAGE value="added settings menu" />
     <MESSAGE value="blarg" />
     <MESSAGE value="implemented loading model files" />
-    <option name="LAST_COMMIT_MESSAGE" value="implemented loading model files" />
+    <MESSAGE value="got webgl to load the model, but it dosent render correctly" />
+    <option name="LAST_COMMIT_MESSAGE" value="got webgl to load the model, but it dosent render correctly" />
   </component>
 </project>
