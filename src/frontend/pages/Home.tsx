@@ -2,11 +2,11 @@
 import {css, useTheme} from "@emotion/react";
 import React, {useEffect, useState} from "react";
 import {CodeEditor} from "./Components/CodeEditor";
-import {RenderingEngine} from "../graphics/rendering";
 import {useAppSelector} from "../data/store";
 import Modal from "react-modal";
 import parseObj from '@hippie/obj'
 import './Styles/Home.css'
+import {RenderingEngine} from "../graphics/rendering";
 
 export function Home() {
     // states
@@ -54,12 +54,13 @@ export function Home() {
             renderingEngine.render(0)
             setError(false)
         } catch (error: any) {
+            console.log(error)
             setError(true)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [vertex, fragment])
 
-    // Mount the Fov settings and update redering engine everytime there is a FOV change
+    //Mount the Fov settings and update redering engine everytime there is a FOV change
     useEffect(() => {
         const {fov, zNear, zFar, scaleX,scaleY,scaleZ} = getSettings
         const instance = RenderingEngine.getInstance()
@@ -129,8 +130,8 @@ export function Home() {
                   border-style: ridge;
                   border-color: ${getError ? "rgb(200,50,50);" : "rgb(50, 50, 50);"}
                 `}
-                width={"600"}
-                height={"500"}
+                width={"1280"}
+                height={"720"}
             />
                 <div>
                 <label css={ theme =>css`

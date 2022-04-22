@@ -74,25 +74,19 @@ function uiReducer(state: UiState = loadPersistUi(), action: AnyAction) {
     }
 }
 
-const vertexShaderSource = `
-    attribute vec4 aVertexPosition;
-    attribute vec4 aVertexColor;
+const vertexShaderSource = `#version 300 es
+in vec4 aVertexPosition, aVertexColor;
+out vec4 vColor;
+void main() {
+    gl_Position =  aVertexPosition;
+    vColor = aVertexColor;
+}`;
 
-    uniform mat4 uModelViewMatrix;
-    uniform mat4 uProjectionMatrix;
-
-    varying lowp vec4 vColor;
-
-    void main(void) {
-      gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
-      vColor = aVertexColor;
-    }
-  `;
-
-const fragShaderSource = `
-    varying lowp vec4 vColor;
-
-    void main(void) {
-      gl_FragColor = vColor;
-    }
-  `;
+const fragShaderSource = `#version 300 es
+precision mediump float;
+const float MaxIter = 100.0;
+in vec4 vColor;
+out vec4 fragColor;
+void main() {
+    fragColor = vColor;
+}`;
