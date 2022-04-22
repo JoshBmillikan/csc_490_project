@@ -3,24 +3,37 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="CargoProjects">
+    <cargoProject FILE="$PROJECT_DIR$/src/rendering/Cargo.toml" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="d641fa09-28f1-494f-942f-32553803c01c" name="Changes" comment="Added third textColor property in theme.ts, changed styling for light theme">
+    <list default="true" id="d641fa09-28f1-494f-942f-32553803c01c" name="Changes" comment="bla">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/frontend/public/mandelbrot.glsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/frontend/public/mandelbrot2.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/CSC_490_Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CSC_490_Project.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/pages/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/pages/Login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/pages/Register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/pages/Register.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/pages/Styles/Login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/pages/Styles/Login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/data/reducers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/data/reducers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/graphics/rendering.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/graphics/rendering.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/pages/Components/CodeEditor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/pages/Components/CodeEditor.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/pages/Home.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="Rust File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -32,36 +45,60 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitSEFilterConfiguration">
-    <file-type-list>
-      <filtered-out-file-type name="LOCAL_BRANCH" />
-      <filtered-out-file-type name="REMOTE_BRANCH" />
-      <filtered-out-file-type name="TAG" />
-      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
-    </file-type-list>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="ehl2e8p3" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
   <component name="ProjectId" id="26oJNEI9qcLCEpLyyZDkxl6nD6c" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.web.browsers" />
-    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
-    <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
-  <component name="RunManager">
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Dev/Projects/csc/csc_490_project&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;org.rust.cargo.project.model.PROJECT_DISCOVERY&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;language.rust.cargo.check&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\Dev\\Projects\\csc\\csc_490_project\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager" selected="npm.start">
+    <configuration name="Build" type="CargoCommandRunConfiguration" factoryName="Cargo Command" nameIsGenerated="true">
+      <option name="command" value="build --target wasm32-unknown-unknown" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$/src/rendering" />
+      <option name="channel" value="DEFAULT" />
+      <option name="requiredFeatures" value="true" />
+      <option name="allFeatures" value="false" />
+      <option name="emulateTerminal" value="false" />
+      <option name="withSudo" value="false" />
+      <option name="backtrace" value="SHORT" />
+      <envs />
+      <option name="isRedirectInput" value="false" />
+      <option name="redirectInputPath" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="start" type="js.build_tools.npm" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="start" />
@@ -69,6 +106,15 @@
       <envs />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="npm.start" />
+    </list>
+  </component>
+  <component name="RustProjectSettings">
+    <option name="externalLinter" value="Clippy" />
+    <option name="runExternalLinterOnTheFly" value="true" />
+    <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
+    <option name="useRustfmt" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -90,8 +136,9 @@
       <workItem from="1649032917565" duration="1878000" />
       <workItem from="1649078712199" duration="597000" />
       <workItem from="1649273578550" duration="3091000" />
-      <workItem from="1650312436705" duration="10477000" />
-      <workItem from="1650554315658" duration="5457000" />
+      <workItem from="1650493984077" duration="5382000" />
+      <workItem from="1650563268173" duration="1503000" />
+      <workItem from="1650565041881" duration="3198000" />
     </task>
     <task id="LOCAL-00001" summary="added fps counter">
       <created>1648086063284</created>
@@ -121,28 +168,21 @@
       <option name="project" value="LOCAL" />
       <updated>1648654383695</updated>
     </task>
-    <task id="LOCAL-00005" summary="Fixed the white space at the bottom of the page and corrected the height of the page to 100 vh">
-      <created>1649784276852</created>
+    <task id="LOCAL-00005" summary="got webgl to load the model, but it dosent render correctly">
+      <created>1650500690979</created>
       <option name="number" value="00005" />
       <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1649784276852</updated>
+      <updated>1650500690979</updated>
     </task>
-    <task id="LOCAL-00006" summary="Fixed home page styling, removed the home and signin button, fixed modal styling, added comments, refactored some css into its own files">
-      <created>1650385133670</created>
+    <task id="LOCAL-00006" summary="bla">
+      <created>1650563305417</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1650385133670</updated>
+      <updated>1650563305417</updated>
     </task>
-    <task id="LOCAL-00007" summary="Added third textColor property in theme.ts, changed styling for light theme">
-      <created>1650388135282</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1650388135282</updated>
-    </task>
-    <option name="localTasksCounter" value="8" />
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,13 +200,17 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="added fps counter" />
     <MESSAGE value="added settings menu" />
     <MESSAGE value="blarg" />
     <MESSAGE value="implemented loading model files" />
-    <MESSAGE value="Fixed the white space at the bottom of the page and corrected the height of the page to 100 vh" />
-    <MESSAGE value="Fixed home page styling, removed the home and signin button, fixed modal styling, added comments, refactored some css into its own files" />
-    <MESSAGE value="Added third textColor property in theme.ts, changed styling for light theme" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added third textColor property in theme.ts, changed styling for light theme" />
+    <MESSAGE value="got webgl to load the model, but it dosent render correctly" />
+    <MESSAGE value="bla" />
+    <option name="LAST_COMMIT_MESSAGE" value="bla" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
