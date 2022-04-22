@@ -1,0 +1,44 @@
+/*
+Style sheet for the code editor with syntax highlighting
+*/
+
+#editing, #highlighting {
+    /* Both elements need the same text and space styling so they are directly on top of each other */
+    margin: 10px;
+    padding: 10px;
+    border: 0;
+    width: 40%;
+    height: 70%;
+    position: absolute;
+    top: 17%;
+    left: 0;
+    overflow: auto;
+}
+
+#editing, #highlighting, #highlighting * {
+    font-size: 12pt; /* font size*/
+    font-family: monospace;
+    line-height: 20pt;
+}
+
+#editing {
+    z-index: 1; /* puts text area in front of syntax highlighter */
+    color: transparent;
+    background: transparent;
+    caret-color: white;
+    resize: none;
+    white-space: nowrap;
+
+}
+
+#highlighting {
+    z-index: 0; /* puts highligthing box behind the text area*/
+}
+
+.contain{
+    padding-top: 12vh;
+    padding-left: 10px;
+}
+.editorContainer{
+    padding-top: 12%;
+}

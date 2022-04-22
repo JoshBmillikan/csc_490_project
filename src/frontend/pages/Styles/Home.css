@@ -1,0 +1,32 @@
+.codeEditor{
+    float: left;
+}
+
+.renderWindow{
+    float: right;
+    padding-right: 5%;
+    padding-top: 10%;
+}
+
+.renderBtns{
+    float: right;
+    color: #8f8f8f
+}
+
+.settingsBtn:hover, .fileBtn:hover{
+    color: #5e5e5e;
+}
+
+#fps{
+    background-color: transparent;
+    width: 20%;
+}
+#modalBtns{
+    float: right;
+    padding-top: 10px;
+    align-content: space-evenly;
+}
+#cancel{
+    margin-right: 10px;
+}
+
