@@ -7,18 +7,11 @@
     <cargoProject FILE="$PROJECT_DIR$/src/rendering/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d641fa09-28f1-494f-942f-32553803c01c" name="Changes" comment="bla">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/frontend/public/mandelbrot.glsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/frontend/public/mandelbrot2.glsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/CSC_490_Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CSC_490_Project.iml" afterDir="false" />
+    <list default="true" id="dac89308-2066-4ab0-a0c2-4b3544759031" name="Changes" comment="random updates">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/data/reducers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/data/reducers.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/graphics/rendering.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/graphics/rendering.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/pages/Components/CodeEditor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/pages/Components/CodeEditor.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/frontend/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/pages/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/pages/Register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/pages/Register.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,28 +55,11 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Dev/Projects/csc/csc_490_project&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;org.rust.cargo.project.model.PROJECT_DISCOVERY&quot;: &quot;true&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;language.rust.cargo.check&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\Dev\\Projects\\csc\\csc_490_project\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  }
-}</component>
+  <component name="PropertiesComponent">
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2021.3.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+  </component>
   <component name="RunManager" selected="npm.start">
     <configuration name="Build" type="CargoCommandRunConfiguration" factoryName="Cargo Command" nameIsGenerated="true">
       <option name="command" value="build --target wasm32-unknown-unknown" />

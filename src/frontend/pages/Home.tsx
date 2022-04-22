@@ -17,7 +17,7 @@ export function Home() {
     const [getShowSettings, setShowSettings] = useState(false)
     // FOV state for changing in settings
     const [getSettings, setSettings] = useState<Settings>({
-        scaleX: 1, scaleY: 1, scaleZ: 1,
+        // scaleX: 1, scaleY: 1, scaleZ: 1,
         fov: 45,
         zNear: 0.1,
         zFar: 100
@@ -153,23 +153,24 @@ export function Home() {
                         it.preventDefault()
                         setSettings({
                             ...getSettings,
-                            fov: parseFloat((document.getElementById('fov') as HTMLInputElement).value),
-                            scaleX: parseFloat((document.getElementById('x') as HTMLInputElement).value),
-                            scaleY: parseFloat((document.getElementById('y') as HTMLInputElement).value),
-                            scaleZ: parseFloat((document.getElementById('z') as HTMLInputElement).value)
+                            fov: parseFloat((document.getElementById('fov') as HTMLInputElement).value)
+                            // scaleX: parseFloat((document.getElementById('x') as HTMLInputElement).value),
+                            // scaleY: parseFloat((document.getElementById('y') as HTMLInputElement).value),
+                            // scaleZ: parseFloat((document.getElementById('z') as HTMLInputElement).value)
                         })
                         setShowSettings(false)
                     }}
                 >
                     <label>FOV:</label><input name={'fov'} id={'fov'} type={"number"} step={0.01}
                                               defaultValue={getSettings.fov}/><br/>
-                    <label>Scale X</label><input name={'x'} id={'x'} type={'number'} step={0.001} defaultValue={getSettings.scaleX}/><br/>
-                    <label>Scale Y</label><input name={'y'} id={'y'} type={'number'} step={0.001} defaultValue={getSettings.scaleY}/><br/>
-                    <label>Scale Z</label><input name={'z'} id={'z'} type={'number'} step={0.001} defaultValue={getSettings.scaleZ}/><br/>
-                    <button onClick={() => setShowSettings(false)}>
-                        Cancel
-                    </button>
+                    {/*<label>Scale X</label><input name={'x'} id={'x'} type={'number'} step={0.001} defaultValue={getSettings.scaleX}/><br/>*/}
+                    {/*<label>Scale Y</label><input name={'y'} id={'y'} type={'number'} step={0.001} defaultValue={getSettings.scaleY}/><br/>*/}
+                    {/*<label>Scale Z</label><input name={'z'} id={'z'} type={'number'} step={0.001} defaultValue={getSettings.scaleZ}/><br/>*/}
+                    <div id={'modalBtns'}>
+                    <input id={'cancel'} type={'button'} value={'Cancel'} onClick={() => setShowSettings(false)}>
+                    </input>
                     <input type={'submit'} value={'Ok'}/>
+                    </div>
                 </form>
             </Modal>
         </div>
@@ -180,7 +181,7 @@ interface Settings {
     fov: number,
     zNear: number,
     zFar: number,
-    scaleX: number,
-    scaleY: number,
-    scaleZ: number,
+    // scaleX: number,
+    // scaleY: number,
+    // scaleZ: number,
 }
