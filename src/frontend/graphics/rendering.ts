@@ -6,6 +6,8 @@ interface ProgramData {
     vertexPosition: number,
     vertexColor: number,
     projection: WebGLUniformLocation,
+    resolution: WebGLUniformLocation,
+    frameCount: WebGLUniformLocation,
     model: WebGLUniformLocation
 }
 
@@ -23,10 +25,14 @@ export class RenderingEngine {
     private buffers: Buffers
     private program: ProgramData
     private static instance: RenderingEngine
-    private vertexCount = 3
+    private vertexCount = 4
+    private indexCount = 6
     stop: boolean = false
     private readonly timerCallback: Function | null
     private model: IObj | null
+    private x : number
+    private y : number
+    private frame: number = 0
 
     constructor(
         fov: number,
@@ -39,7 +45,10 @@ export class RenderingEngine {
     ) {
         this.timerCallback = timerCallback
         this.model = model
-        const gl = document.querySelector<HTMLCanvasElement>("#webgl")?.getContext("webgl");
+        const element = document.querySelector<HTMLCanvasElement>("#webgl")!
+        const gl = element.getContext("webgl2")
+        this.x = element.width
+        this.y = element.height
         this.gl = gl!
         mat4.perspective(
             this.projection,
@@ -54,6 +63,8 @@ export class RenderingEngine {
             gl.clear(gl.COLOR_BUFFER_BIT)
             const program = this.loadShaders(vertexShader, fragmentShader)
             this.program = {
+                frameCount: this.gl.getUniformLocation(program, "uFrameCount")!,
+                resolution: this.gl.getUniformLocation(program, "uResolution")!,
                 program: program,
                 vertexPosition: this.gl.getAttribLocation(program, 'aVertexPosition'),
                 vertexColor: this.gl.getAttribLocation(program, "aVertexColor"),
@@ -74,7 +85,7 @@ export class RenderingEngine {
         currentTime *= 0.001
         const deltaTime = currentTime - this.lastTime
         this.lastTime = currentTime
-        this.draw(deltaTime)
+        this.draw()
         mat4.rotate(this.modelView, this.modelView, deltaTime, vec3.fromValues(0.5, 0.5, .4))
         if (this.timerCallback)
             this.timerCallback(deltaTime)
@@ -112,11 +123,16 @@ export class RenderingEngine {
         const indexBuffer = this.gl.createBuffer()
         this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, indexBuffer)
         this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER, data.indices!, this.gl.STATIC_DRAW)
+        this.indexCount = data.indices!.length
         return {
             position: buffer!,
             color: colorBuffer!,
             index: indexBuffer
         }
+    }
+
+    setScale(x: number, y: number, z: number) {
+        mat4.scale(this.modelView, this.modelView, [x,y,z])
     }
 
     setProjection(fov: number, near: number, far: number) {
@@ -129,7 +145,7 @@ export class RenderingEngine {
         )
     }
 
-    private draw(deltaTime: number) {
+    private draw() {
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0)
         this.gl.clearDepth(1.0)
         this.gl.enable(this.gl.DEPTH_TEST)
@@ -156,33 +172,47 @@ export class RenderingEngine {
         this.gl.useProgram(this.program.program)
         this.gl.uniformMatrix4fv(this.program.projection, false, this.projection)
         this.gl.uniformMatrix4fv(this.program.model, false, this.modelView)
+        this.gl.uniform2f(this.program.resolution, this.x, this.y)
+        this.gl.uniform1i(this.program.frameCount, this.frame)
 
 
-        this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, this.vertexCount)
+        this.gl.drawElements(this.gl.TRIANGLES, this.indexCount, this.gl.UNSIGNED_SHORT, 0)
+        this.frame++
     }
 
     private initBuffers(): Buffers {
         const buffer = this.gl.createBuffer()
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buffer)
         const positions = [
-            -0.5, -0.5, 0.0, 1.0,
-            0.5, -0.5, 0.0, 1.0,
-            0.0, 0.5, 0.0, 1.0
+            1.0,  1.0, 1.0, 1.0,
+            1.0, -1.0, 1.0, 1.0,
+            -1.0, -1.0, 0.0, 1.0,
+            -1.0,  1.0, 0.0, 1.0
         ];
         this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(positions), this.gl.STATIC_DRAW)
         const colors = [
             1.0, 0.0, 0.0, 1.0,
             0.0, 1.0, 0.0, 1.0,
-            0.0, 0.0, 1.0, 1.0
+            0.0, 0.0, 1.0, 1.0,
+            1.0, 0.0, 0.0, 1.0,
         ];
         const colorBuffer = this.gl.createBuffer();
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, colorBuffer);
         this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(colors), this.gl.STATIC_DRAW);
 
+        const indices = [
+            0, 1, 3,
+            1, 2, 3
+        ];
+
+        const indexBuffer = this.gl.createBuffer()
+        this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, indexBuffer)
+        this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER, new Int16Array(indices), this.gl.STATIC_DRAW)
+
         return {
             position: buffer!,
             color: colorBuffer!,
-            index: null
+            index: indexBuffer
         }
     }
 
