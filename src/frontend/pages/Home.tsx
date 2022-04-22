@@ -129,6 +129,8 @@ export function Home() {
                   border-width: 2px;
                   border-style: ridge;
                   border-color: ${getError ? "rgb(200,50,50);" : "rgb(50, 50, 50);"}
+                  width: 50vw;
+                  height: 60vh;
                 `}
                 width={"1280"}
                 height={"720"}
